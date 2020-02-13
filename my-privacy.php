@@ -108,3 +108,23 @@ function jlplg_prvpol_sanitize_input_field( $input ) {
     }
     return $input;
 }
+
+function jlplg_prvpol_display_cookie_notice() {    
+    if ( !isset( $_COOKIE['cookie-accepted'] ) ) {
+        add_action('wp_body_open', 'jlplg_prvpol_your_function');
+    }
+}
+add_action( 'init', 'jlplg_prvpol_display_cookie_notice');
+
+// displaying cookie info on page
+function jlplg_prvpol_your_function() {
+?>
+    <div class="cookie-info-container">
+        <form action="" method="post" id="cookie-form">
+            <p class="cookie-info">This is inserted at the bottom This is inserted at the bottom</p>
+            <button type="submit" name="cookie-accept-button" class="cookie-accept-button" id="cookie-accept-button">Accept Cookies</button>
+            <button type="submit" name="cookie-privacy-policy" class="cookie-privacy-policy" id="cookie-privacy-policy">Privacy policy</button>  
+        </form>
+    </div>
+<?php
+}
