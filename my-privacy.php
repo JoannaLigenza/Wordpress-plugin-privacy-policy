@@ -30,6 +30,14 @@
 // prevent directly access to file
 defined( 'ABSPATH' ) or die( 'hey, you don\'t have an access to read this site' );
 
+// adding styles and scripts
+function jlplg_prvpol_enqueue_scripts() {
+    wp_enqueue_style( 'styles', plugins_url( 'styles.css', __FILE__ ) );
+    wp_enqueue_script( 'script', plugins_url( 'public/js/script.js', __FILE__ ), true );
+}
+add_action( 'wp_enqueue_scripts', 'jlplg_prvpol_enqueue_scripts' );
+
+
 // adding new page to admin menu
 add_action( 'admin_menu', 'jlplg_prvpol_add_new_page' );
 function jlplg_prvpol_add_new_page() {

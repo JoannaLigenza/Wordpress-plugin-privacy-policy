@@ -1,0 +1,29 @@
+.cookie-info-container {
+    position: fixed; 
+    bottom: 0; 
+    background-color: rgb(68, 69, 70); 
+    z-index: 10; 
+    width: 100%;
+    text-align: center;
+    margin: 0;
+}
+
+.cookie-info {
+    display: inline-block;
+    padding: 10px;
+    color: #fff;
+    margin: 5px 0;
+}
+
+.cookie-accept-button, .cookie-privacy-policy {
+    padding: 5px 15px;
+    border-radius: 4px;
+    background-color: rgb(220, 241, 255);
+    border: 2px solid transparent;
+    margin: 5px 0;
+}
+
+.cookie-accept-button:focus, .cookie-privacy-policy:focus {
+    border: 2px solid rgb(143, 143, 143);
+    outline: none;
+}
