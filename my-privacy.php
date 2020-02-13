@@ -53,6 +53,16 @@ function jlplg_prvpol_set_cookie() {
         wp_redirect( $current_url );
         exit;
     }
+
+    // make action when cookie privacy policy button was clicked
+    if ( isset( $_POST['cookie-privacy-policy'] ) ) {
+        $privacy_policy = get_privacy_policy_url();
+        if ( empty($privacy_policy) ) {
+            $privacy_policy = 'privacy-policy';
+        }
+        wp_redirect( $privacy_policy );
+        exit;
+    }
 }
 add_action('init', 'jlplg_prvpol_set_cookie');
 
