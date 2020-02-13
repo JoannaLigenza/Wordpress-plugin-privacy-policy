@@ -181,13 +181,15 @@ add_action( 'init', 'jlplg_prvpol_display_cookie_notice');
 // displaying cookie info on page
 function jlplg_prvpol_your_function() {
 ?>
-    <div class="cookie-info-container">
+    <div class="jlplg-prvpol-cookie-info-container">
         <form action="" method="post" id="cookie-form">
-            <p class="cookie-info">This is inserted at the bottom This is inserted at the bottom</p>
-            <button type="submit" name="cookie-accept-button" class="cookie-accept-button" id="cookie-accept-button">Accept Cookies</button>
+            <p class="jlplg-prvpol-cookie-info"><?php echo get_option( "jlplg_prvpol-field1-cookie-message" ); ?></p>
+            <div class="jlplg-prvpol-buttons">
+            <button type="submit" name="cookie-accept-button" class="jlplg-prvpol-cookie-accept-button" id="cookie-accept-button">Accept Cookies</button>
             <?php if ( get_option( "jlplg_prvpol-field2-checkbox-privacy-policy" ) ) { ?>
-            <button type="submit" name="cookie-privacy-policy" class="cookie-privacy-policy" id="cookie-privacy-policy">Privacy policy</button>
+            <button type="submit" name="cookie-privacy-policy" class="jlplg-prvpol-cookie-privacy-policy" id="cookie-privacy-policy">Privacy policy</button>
             <?php } ?>
+            </div>
         </form>
     </div>
 <?php
