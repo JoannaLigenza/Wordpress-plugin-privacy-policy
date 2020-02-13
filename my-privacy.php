@@ -64,3 +64,47 @@ function jlplg_prvpol_page_html_content() {
     </div>
     <?php
 }
+
+// adding settings and sections
+function jlplg_prvpol_add_new_settings() {
+    // register setting
+    $settins_arg = array(
+        'type' => 'string',
+        'description' => 'descrption of settings for field1 and field2',
+        'sanitize_callback' => 'jlplg_prvpol_sanitize_input_field',
+        'default' => 'now'
+    );
+    register_setting( 'jl_options', 'field1', $settins_arg);     // option group, option name, args
+    register_setting( 'jl_options', 'field2', $settins_arg);
+    // adding sections
+    add_settings_section( 'jl_setting_section_1', 'Section Title 1 - adding from section 1 options', 'jlplg_prvpol_section_1_text', 'jl-slug' );  // id (Slug-name to identify the section), title, callback, page slug
+    add_settings_section( 'jl_setting_section_2', 'Section Title 2 - adding from section 2 options', 'jlplg_prvpol_section_2_text', 'jl-slug' );
+    // adding fields for section
+    add_settings_field( 'field-1', 'Field 1', 'jlplg_prvpol_field_callback1', 'jl-slug', 'jl_setting_section_1' );       // id (Slug-name to identify the field), title, callback, slug-name of the settings page on which to show the section, section, args (attr for field)
+    add_settings_field( 'field-2', 'Field 2', 'jlplg_prvpol_field_callback2', 'jl-slug', 'jl_setting_section_2' );
+}
+add_action( 'admin_init', 'jlplg_prvpol_add_new_settings' );
+
+
+function jlplg_prvpol_section_1_text() {
+    echo 'to jest tresc sekcji 1';
+}
+
+function jlplg_prvpol_section_2_text() {
+    echo 'to jest tresc sekcji 2';
+}
+
+function jlplg_prvpol_field_callback1() {
+  echo '<input type="text" name="field1" value="'.get_option( "field1" ).'" />';
+}
+
+function jlplg_prvpol_field_callback2() {
+  echo '<input type="text" name="field2" value="" />';
+}
+
+function jlplg_prvpol_sanitize_input_field( $input ) {
+    if ( isset( $input ) ) {
+        $input = sanitize_text_field( $input );
+    }
+    return $input;
+}
