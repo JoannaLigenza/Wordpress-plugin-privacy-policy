@@ -30,3 +30,37 @@
 // prevent directly access to file
 defined( 'ABSPATH' ) or die( 'hey, you don\'t have an access to read this site' );
 
+// adding new page to admin menu
+add_action( 'admin_menu', 'jlplg_prvpol_add_new_page' );
+function jlplg_prvpol_add_new_page() {
+    add_menu_page(
+        'Privacy Policy',                                       // $page_title
+        'Privacy Policy',                                       // $menu_title
+        'manage_options',                                       // $capability
+        'privacy-policy',                                       // $menu_slug
+        'jlplg_prvpol_page_html_content',                       // $function
+        plugin_dir_url(__FILE__) . 'images/icon_wporg.png',     // $icon_url
+        90                                                      // $position
+    );
+}
+
+
+// adding content to menu page
+function jlplg_prvpol_page_html_content() {
+    ?>
+    <div class="wrap">
+      <form action="options.php" method="post">
+        <h2>Page title</h2>
+        <?php
+        // outpus settings fields (without this there is error after clicking save settings button)
+        settings_fields( 'jl_options' );                        // A settings group name. This should match the group name used in register_setting()
+        // output setting sections and their fields
+        do_settings_sections( 'jl-slug' );                      // The slug name of settings sections you want to output.
+        // output save settings button
+        $other_attributes = array( 'style' => 'background-color: white; color: blue; border: 1px solid blue' );
+        submit_button( 'Save Settings', 'primary', 'submit', true, $other_attributes );     // Button text, button type, button id, wrap, any other attribute
+        ?>
+      </form>
+    </div>
+    <?php
+}
