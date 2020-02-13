@@ -27,8 +27,9 @@
  * along with {Plugin Name}. If not, see {URI to Plugin License}.
  */
 
-// prevent directly access to file
 defined( 'ABSPATH' ) or die( 'hey, you don\'t have an access to read this site' );
+
+// jlplg_prvpol - jl plugin - privacy policy
 
 // adding styles and scripts
 function jlplg_prvpol_enqueue_scripts() {
@@ -36,6 +37,24 @@ function jlplg_prvpol_enqueue_scripts() {
     wp_enqueue_script( 'script', plugins_url( 'public/js/script.js', __FILE__ ), true );
 }
 add_action( 'wp_enqueue_scripts', 'jlplg_prvpol_enqueue_scripts' );
+
+
+// setting cookie - this function must be called before html code is displayed
+function jlplg_prvpol_set_cookie() {
+    // make action when cookie accept button was clicked
+    if ( isset( $_POST['cookie-accept-button'] ) ) {
+        $domain = explode('https://', site_url());
+        if ( ! is_ssl() ) {
+            $domain = explode('http://', site_url());
+        }
+        $domain = explode('/', $domain[1]);
+        setcookie('cookie-accepted', 1, time()+3600*24*100, '/', $domain[0] );
+        $current_url = is_ssl() ? 'https://'.$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'] : 'http://'.$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'];
+        wp_redirect( $current_url );
+        exit;
+    }
+}
+add_action('init', 'jlplg_prvpol_set_cookie');
 
 
 // adding new page to admin menu
@@ -51,7 +70,6 @@ function jlplg_prvpol_add_new_page() {
         90                                                      // $position
     );
 }
-
 
 // adding content to menu page
 function jlplg_prvpol_page_html_content() {
@@ -117,12 +135,14 @@ function jlplg_prvpol_sanitize_input_field( $input ) {
     return $input;
 }
 
+// set cookie
 function jlplg_prvpol_display_cookie_notice() {    
     if ( !isset( $_COOKIE['cookie-accepted'] ) ) {
         add_action('wp_body_open', 'jlplg_prvpol_your_function');
     }
 }
 add_action( 'init', 'jlplg_prvpol_display_cookie_notice');
+
 
 // displaying cookie info on page
 function jlplg_prvpol_your_function() {
