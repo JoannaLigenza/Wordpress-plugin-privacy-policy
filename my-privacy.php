@@ -67,6 +67,40 @@ function jlplg_prvpol_set_cookie() {
 add_action('init', 'jlplg_prvpol_set_cookie');
 
 
+// display cookie notice if cookie info is not set
+function jlplg_prvpol_display_cookie_notice() {    
+    if ( !isset( $_COOKIE['cookie-accepted'] ) ) {
+        add_action('wp_body_open', 'jlplg_prvpol_display_cookie_info');
+    }
+}
+add_action( 'init', 'jlplg_prvpol_display_cookie_notice');
+
+
+// code for displaying cookie info on page
+function jlplg_prvpol_display_cookie_info() {
+    $cookie_message = empty( get_option( "jlplg_prvpol-field1-cookie-message" ) ) ? 'We use cookies to improve your experience on our website. By browsing this website, you agree to our use of cookies' : get_option( "jlplg_prvpol-field1-cookie-message" );
+    $cookie_info_button = empty( get_option( "jlplg_prvpol-field3-cookie-button-text" ) ) ? 'Accept Cookies' : get_option( "jlplg_prvpol-field3-cookie-button-text" ) ;
+    $show_policy_privacy = get_option( "jlplg_prvpol-field2-checkbox-privacy-policy" );
+    $background_color = empty( get_option( "jlplg_prvpol-field4-background-color" ) ) ? '#444546' : get_option( "jlplg_prvpol-field4-background-color" );
+    $text_color = empty( get_option( "jlplg_prvpol-field5-text-color" ) ) ? '#ffffff' : get_option( "jlplg_prvpol-field5-text-color" );
+    $button_background_color = empty( get_option( "jlplg_prvpol-field6-button-background-color" ) ) ? '#dcf1ff' : get_option( "jlplg_prvpol-field6-button-background-color" );
+    $button_text_color = empty( get_option( "jlplg_prvpol-field7-button-text-color" ) ) ? '#000000' : get_option( "jlplg_prvpol-field7-button-text-color" );
+?>
+    <div class="jlplg-prvpol-cookie-info-container" style="background-color: <?php echo $background_color; ?>">
+        <form action="" method="post" id="cookie-form">
+            <p class="jlplg-prvpol-cookie-info" style="color: <?php echo $text_color ?>"><?php echo $cookie_message; ?></p>
+            <div class="jlplg-prvpol-buttons">
+            <button type="submit" name="cookie-accept-button" class="jlplg-prvpol-cookie-accept-button" id="cookie-accept-button" style="background-color: <?php echo $button_background_color ?>" ><span style="color: <?php echo $button_text_color ?>"><?php echo $cookie_info_button ; ?></span></button>
+            <?php if ( $show_policy_privacy ) { ?>
+            <button type="submit" name="cookie-privacy-policy" class="jlplg-prvpol-cookie-privacy-policy" id="cookie-privacy-policy" style="background-color: <?php echo $button_background_color ?>"><span style="color: <?php echo $button_text_color ?>">Privacy Policy</span></button>
+            <?php } ?>
+            </div>
+        </form>
+    </div>
+<?php
+}
+
+
 // adding new page to admin menu
 add_action( 'admin_menu', 'jlplg_prvpol_add_new_page' );
 function jlplg_prvpol_add_new_page() {
@@ -105,7 +139,7 @@ function jlplg_prvpol_page_html_content() {
 
 // adding settings and sections
 function jlplg_prvpol_add_new_settings() {
-    // register setting
+    // register settings
     $configuration_settins_field1_arg = array(
         'type' => 'string',
         'sanitize_callback' => 'jlplg_prvpol_sanitize_input_field',
@@ -114,7 +148,7 @@ function jlplg_prvpol_add_new_settings() {
     $configuration_settins_field2_arg = array(
         'type' => 'boolean',
         'sanitize_callback' => 'jlplg_prvpol_sanitize_checkbox',
-        'default' => true
+        'default' => false
     );
     $configuration_settins_field3_arg = array(
         'type' => 'string',
@@ -214,35 +248,4 @@ function jlplg_prvpol_sanitize_checkbox( $checked ) {
     return ( ( isset( $checked ) && true == $checked ) ? true : false );
 }
 
-// set cookie
-function jlplg_prvpol_display_cookie_notice() {    
-    if ( !isset( $_COOKIE['cookie-accepted'] ) ) {
-        add_action('wp_body_open', 'jlplg_prvpol_your_function');
-    }
-}
-add_action( 'init', 'jlplg_prvpol_display_cookie_notice');
 
-
-// displaying cookie info on page
-function jlplg_prvpol_your_function() {
-    $cookie_message = get_option( "jlplg_prvpol-field1-cookie-message" );
-    $cookie_info_button = empty( get_option( "jlplg_prvpol-field3-cookie-button-text" ) ) ? 'Accept Cookies' : get_option( "jlplg_prvpol-field3-cookie-button-text" ) ;
-    $show_policy_privacy = get_option( "jlplg_prvpol-field2-checkbox-privacy-policy" );
-    $background_color = empty( get_option( "jlplg_prvpol-field4-background-color" ) ) ? '#444546' : get_option( "jlplg_prvpol-field4-background-color" );
-    $text_color = empty( get_option( "jlplg_prvpol-field5-text-color" ) ) ? '#ffffff' : get_option( "jlplg_prvpol-field5-text-color" );
-    $button_background_color = empty( get_option( "jlplg_prvpol-field6-button-background-color" ) ) ? '#dcf1ff' : get_option( "jlplg_prvpol-field6-button-background-color" );
-    $button_text_color = empty( get_option( "jlplg_prvpol-field7-button-text-color" ) ) ? '#000000' : get_option( "jlplg_prvpol-field7-button-text-color" );
-?>
-    <div class="jlplg-prvpol-cookie-info-container" style="background-color: <?php echo $background_color; ?>">
-        <form action="" method="post" id="cookie-form">
-            <p class="jlplg-prvpol-cookie-info" style="color: <?php echo $text_color ?>"><?php echo $cookie_message; ?></p>
-            <div class="jlplg-prvpol-buttons">
-            <button type="submit" name="cookie-accept-button" class="jlplg-prvpol-cookie-accept-button" id="cookie-accept-button" style="background-color: <?php echo $button_background_color ?>" ><span style="color: <?php echo $button_text_color ?>"><?php echo $cookie_info_button ; ?></span></button>
-            <?php if ( $show_policy_privacy ) { ?>
-            <button type="submit" name="cookie-privacy-policy" class="jlplg-prvpol-cookie-privacy-policy" id="cookie-privacy-policy" style="background-color: <?php echo $button_background_color ?>"><span style="color: <?php echo $button_text_color ?>">Privacy Policy</span></button>
-            <?php } ?>
-            </div>
-        </form>
-    </div>
-<?php
-}
