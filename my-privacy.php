@@ -1,10 +1,9 @@
 <?php
 /**
-<<<<<<< HEAD
 =======
  * @package MyPrivacyPolicy
  * 
->>>>>>> privacy
+
  * Plugin Name: My Privacy Policy
  * Description: Set privacy policy on your site.
  * Version: 1.0.
@@ -30,23 +29,6 @@
  * along with {Plugin Name}. If not, see {URI to Plugin License}.
  */
 
-<<<<<<< HEAD
-
-function jlprivacy_activate_plugin() {
-    // do domething on activation
-}
-register_activation_hook( __FILE__, 'jlprivacy_activate_plugin' );
-
-function jlprivacy_deactivate_plugin() {
-    // do domething on activation
-}
-register_deactivation_hook( __FILE__, 'jlprivacy_deactivate_plugin' );
-
-function jlprivacy_uninstall_plugin() {
-    // do domething on activation
-}
-register_uninstall_hook( __FILE__, 'jlprivacy_uninstall_plugin' );
-=======
 defined( 'ABSPATH' ) or die( 'hey, you don\'t have an access to read this site' );
 
 // jlplg_prvpol - jl plugin - privacy policy
@@ -277,4 +259,3 @@ function jlplg_prvpol_sanitize_checkbox( $checked ) {
 }
 
 
->>>>>>> privacy
