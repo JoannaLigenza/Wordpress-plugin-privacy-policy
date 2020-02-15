@@ -1,0 +1,36 @@
+.jlplg-prvpol-cookie-info-container {
+    position: fixed; 
+    bottom: 0; 
+    z-index: 10; 
+    width: 100%;
+    text-align: center;
+    margin: 0;
+}
+
+.jlplg-prvpol-cookie-info {
+    display: inline-block;
+    padding: 10px;
+    margin: 5px 0;
+}
+
+.jlplg-prvpol-buttons {
+    display: inline-block;
+    margin-bottom: 10px;
+}
+
+.jlplg-prvpol-cookie-accept-button, .jlplg-prvpol-cookie-privacy-policy {
+    padding: 5px 15px;
+    border-radius: 4px;
+    /* background-color: rgb(220, 241, 255); */
+    border: 2px solid transparent;
+    margin: 5px 0;
+}
+
+.jlplg-prvpol-cookie-accept-button:hover, .jlplg-prvpol-cookie-privacy-policy:hover {
+    cursor: pointer;
+}
+
+.jlplg-prvpol-cookie-accept-button:focus, .jlplg-prvpol-cookie-privacy-policy:focus {
+    border: 2px solid rgb(143, 143, 143);
+    outline: none;
+}
