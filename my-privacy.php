@@ -79,8 +79,8 @@ add_action( 'init', 'jlplg_prvpol_display_cookie_notice');
 // code for displaying cookie info on page
 function jlplg_prvpol_display_cookie_info() {
     $cookie_message = empty( get_option( "jlplg_prvpol-field1-cookie-message" ) ) ? 'We use cookies to improve your experience on our website. By browsing this website, you agree to our use of cookies' : get_option( "jlplg_prvpol-field1-cookie-message" );
-    $cookie_info_button = empty( get_option( "jlplg_prvpol-field3-cookie-button-text" ) ) ? 'Accept Cookies' : get_option( "jlplg_prvpol-field3-cookie-button-text" ) ;
-    $show_policy_privacy = get_option( "jlplg_prvpol-field2-checkbox-privacy-policy" );
+    $cookie_info_button = empty( get_option( "jlplg_prvpol-field3-cookie-button-text" ) ) ? 'Accept Cookies' : get_option( "jlplg_prvpol-field3-cookie-button-text" );
+    $show_policy_privacy = empty( get_option( "jlplg_prvpol-field2-checkbox-privacy-policy" ) ) ? false : get_option( "jlplg_prvpol-field2-checkbox-privacy-policy" );
     $background_color = empty( get_option( "jlplg_prvpol-field4-background-color" ) ) ? '#444546' : get_option( "jlplg_prvpol-field4-background-color" );
     $text_color = empty( get_option( "jlplg_prvpol-field5-text-color" ) ) ? '#ffffff' : get_option( "jlplg_prvpol-field5-text-color" );
     $button_background_color = empty( get_option( "jlplg_prvpol-field6-button-background-color" ) ) ? '#dcf1ff' : get_option( "jlplg_prvpol-field6-button-background-color" );
@@ -104,14 +104,22 @@ function jlplg_prvpol_display_cookie_info() {
 // adding new page to admin menu
 add_action( 'admin_menu', 'jlplg_prvpol_add_new_page' );
 function jlplg_prvpol_add_new_page() {
-    add_menu_page(
+    // add_menu_page(
+    //     'Privacy Policy',                                       // $page_title
+    //     'Privacy Policy',                                       // $menu_title
+    //     'manage_options',                                       // $capability
+    //     'privacy-policy',                                       // $menu_slug
+    //     'jlplg_prvpol_page_html_content',                       // $function
+    //     plugin_dir_url(__FILE__) . 'images/icon_wporg.png',     // $icon_url
+    //     90                                                      // $position
+    // );
+    add_submenu_page(
+        'options-general.php',                                           // $parent_slug
         'Privacy Policy',                                       // $page_title
         'Privacy Policy',                                       // $menu_title
         'manage_options',                                       // $capability
         'privacy-policy',                                       // $menu_slug
-        'jlplg_prvpol_page_html_content',                       // $function
-        plugin_dir_url(__FILE__) . 'images/icon_wporg.png',     // $icon_url
-        90                                                      // $position
+        'jlplg_prvpol_page_html_content'                       // $function
     );
 }
 
