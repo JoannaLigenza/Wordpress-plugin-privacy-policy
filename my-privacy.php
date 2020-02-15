@@ -87,7 +87,7 @@ function jlplg_prvpol_display_cookie_info() {
     $button_text_color = empty( get_option( "jlplg_prvpol-field7-button-text-color" ) ) ? '#000000' : get_option( "jlplg_prvpol-field7-button-text-color" );
     $cookie_info_placemet = empty( get_option( "jlplg_prvpol-field4-cookie-plugin-placement" ) ) ? 'bottom' : get_option( "jlplg_prvpol-field4-cookie-plugin-placement" );
 ?>
-    <div class="jlplg-prvpol-cookie-info-container" style="background-color: <?php echo $background_color.'; '.$cookie_info_placemet.': 0' ?>">
+    <div class="jlplg-prvpol-cookie-info-container" style="background-color: <?php echo $background_color.'; '.$cookie_info_placemet.': 0' ?>" id="jlplg-prvpol-cookie-info-container">
         <form action="" method="post" id="cookie-form">
             <p class="jlplg-prvpol-cookie-info" style="color: <?php echo $text_color ?>"><?php echo $cookie_message; ?></p>
             <div class="jlplg-prvpol-buttons">
