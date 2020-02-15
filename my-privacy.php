@@ -1,9 +1,7 @@
 <?php
 /**
-=======
  * @package MyPrivacyPolicy
  * 
-
  * Plugin Name: My Privacy Policy
  * Description: Set privacy policy on your site.
  * Version: 1.0.
@@ -152,7 +150,7 @@ function jlplg_prvpol_add_new_settings() {
     // register settings
     $configuration_settins_field1_arg = array(
         'type' => 'string',
-        'sanitize_callback' => 'jlplg_prvpol_sanitize_input_field',
+        'sanitize_callback' => 'jlplg_prvpol_sanitize_textarea_field',
         'default' => 'We use cookies to improve your experience on our website. By browsing this website, you agree to our use of cookies'
     );
     $configuration_settins_field2_arg = array(
@@ -243,6 +241,14 @@ function jlplg_prvpol_field_6_callback() {
 // field 7 - button text color
 function jlplg_prvpol_field_7_callback() {
     echo '<input type="color" name="jlplg_prvpol-field7-button-text-color" value="'.get_option( "jlplg_prvpol-field7-button-text-color" ).'" />';
+}
+
+// sanitize textarea
+function jlplg_prvpol_sanitize_textarea_field( $input ) {
+    if ( isset( $input ) ) {
+        $input = sanitize_textarea_field( $input );
+    }
+    return $input;
 }
 
 // sanitize input
