@@ -54,7 +54,7 @@ function jlplg_prvpol_set_cookie() {
         exit;
     }
 
-    // make action when cookie privacy policy button was clicked
+    // make action when privacy policy button was clicked
     if ( isset( $_POST['cookie-privacy-policy'] ) ) {
         $privacy_policy = get_privacy_policy_url();
         if ( empty($privacy_policy) ) {
