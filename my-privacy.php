@@ -185,22 +185,22 @@ function jlplg_prvpol_add_new_settings() {
     );
     $layout_settins_field1_arg = array(
         'type' => 'string',
-        'sanitize_callback' => 'jlplg_prvpol_sanitize_input_field',
+        'sanitize_callback' => 'jlplg_prvpol_sanitize_color_input',
         'default' => '#444546'
     );
     $layout_settins_field2_arg = array(
         'type' => 'string',
-        'sanitize_callback' => 'jlplg_prvpol_sanitize_input_field',
+        'sanitize_callback' => 'jlplg_prvpol_sanitize_color_input',
         'default' => '#ffffff'
     );
     $layout_settins_field3_arg = array(
         'type' => 'string',
-        'sanitize_callback' => 'jlplg_prvpol_sanitize_input_field',
+        'sanitize_callback' => 'jlplg_prvpol_sanitize_color_input',
         'default' => '#dcf1ff'
     );
     $layout_settins_field4_arg = array(
         'type' => 'string',
-        'sanitize_callback' => 'jlplg_prvpol_sanitize_input_field',
+        'sanitize_callback' => 'jlplg_prvpol_sanitize_color_input',
         'default' => '#000000'
     );
     register_setting( 'jl_options', 'jlplg_prvpol-field1-cookie-message', $configuration_settins_field1_arg);     // option group, option name, args
@@ -294,6 +294,14 @@ function jlplg_prvpol_sanitize_input_field( $input ) {
 // sanitize checkbox
 function jlplg_prvpol_sanitize_checkbox( $checked ) {
     return ( ( isset( $checked ) && true == $checked ) ? true : false );
+}
+
+// sanitize color input
+function jlplg_prvpol_sanitize_color_input( $checked ) {
+    if ( isset( $input ) ) {
+        $input = sanitize_hex_color( $input );
+    }
+    return $input;
 }
 
 
