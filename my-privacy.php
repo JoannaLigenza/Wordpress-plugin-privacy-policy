@@ -50,7 +50,7 @@ function jlplg_prvpol_set_cookie() {
         $domain = explode('/', $domain[1]);
         setcookie( sanitize_key( 'cookie-accepted' ), 1, time()+3600*24*14, '/', $domain[0] );
         $current_url = is_ssl() ? esc_url('https://'.$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI']) : esc_url('http://'.$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI']);
-        wp_redirect( $current_url );
+        wp_safe_redirect( $current_url );
         exit;
     }
 
@@ -60,7 +60,7 @@ function jlplg_prvpol_set_cookie() {
         if ( empty($privacy_policy) ) {
             $privacy_policy = 'privacy-policy';
         }
-        wp_redirect( $privacy_policy );
+        wp_safe_redirect( $privacy_policy );
         exit;
     }
 }
