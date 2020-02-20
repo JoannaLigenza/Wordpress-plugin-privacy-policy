@@ -33,8 +33,16 @@ defined( 'ABSPATH' ) or die( 'hey, you don\'t have an access to read this site' 
 
 // adding styles and scripts
 function jlplg_prvpol_enqueue_scripts() {
-    wp_enqueue_style( 'styles', plugins_url( 'styles.css', __FILE__ ) );
-    wp_enqueue_script( 'script', plugins_url( 'public/js/script.js', __FILE__ ), true );
+    // load styles and script for plugin only if cookies are not accepted
+    if ( !isset( $_COOKIE['cookie-accepted'] ) ) {
+        wp_enqueue_style( 'styles', plugins_url( 'styles.css', __FILE__ ) );
+        wp_enqueue_script( 'jlplg_prvpol_script', plugins_url( 'public/js/jlplg-prvpol-script.js', __FILE__ ), array( 'jquery' ), true );
+        wp_localize_script( 'jlplg_prvpol_script', 'jlplg_prvpol_script_ajax_object',
+            array( 
+                'ajax_url' => admin_url( 'admin-ajax.php' ),
+            )
+        );
+    }
 }
 add_action( 'wp_enqueue_scripts', 'jlplg_prvpol_enqueue_scripts' );
 
@@ -47,8 +55,9 @@ function jlplg_prvpol_set_cookie() {
         if ( ! is_ssl() ) {
             $domain = explode( 'http://', site_url() );
         }
-        $domain = explode('/', $domain[1]);
-        setcookie( sanitize_key( 'cookie-accepted' ), 1, time()+3600*24*14, '/', $domain[0] );
+        $domain = explode('/', $domain[1], 2);
+        $path = empty($domain[1]) ? "/" : "/".$domain[1]."/";
+        setcookie( sanitize_key( 'cookie-accepted' ), 1, time()+3600*24*14, $path );
         $current_url = is_ssl() ? esc_url('https://'.$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI']) : esc_url('http://'.$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI']);
         wp_safe_redirect( $current_url );
         exit;
@@ -65,6 +74,22 @@ function jlplg_prvpol_set_cookie() {
     }
 }
 add_action('init', 'jlplg_prvpol_set_cookie');
+
+function jlplg_prvpol_set_cookie_ajax() {
+    // make action when cookie accept button was clicked - without page reloading
+    $domain = explode( 'https://', site_url() );
+    if ( ! is_ssl() ) {
+        $domain = explode( 'http://', site_url() );
+    }
+    $domain = explode('/', $domain[1], 2);
+    $path = empty($domain[1]) ? "/" : "/".$domain[1]."/";
+    // setcookie( sanitize_key( 'cookie-accepted' ), 1, time()+3600*24*14, $path, $domain[0] );     // when add $domain[0], then cookies are setted to domain and all subdomains (in console domain is visible with dot - .domain)
+    setcookie( sanitize_key( 'cookie-accepted' ), 1, time()+3600*24*14, $path );
+    echo json_encode("cookies-added");
+    die();
+}
+add_action( 'wp_ajax_set_cookie_ajax', 'jlplg_prvpol_set_cookie_ajax' );
+add_action( 'wp_ajax_nopriv_set_cookie_ajax', 'jlplg_prvpol_set_cookie_ajax' );
 
 
 // display cookie notice if cookie info is not set
@@ -297,7 +322,7 @@ function jlplg_prvpol_sanitize_checkbox( $checked ) {
 }
 
 // sanitize color input
-function jlplg_prvpol_sanitize_color_input( $checked ) {
+function jlplg_prvpol_sanitize_color_input( $input ) {
     if ( isset( $input ) ) {
         $input = sanitize_hex_color( $input );
     }
