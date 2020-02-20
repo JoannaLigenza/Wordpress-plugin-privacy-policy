@@ -6,7 +6,7 @@
  * Description: Set privacy policy on your site.
  * Version: 1.0.
  * Requires at least: 5.0
- * Requires PHP: 7.2
+ * Requires PHP: 5.0
  * Author: JL
  * License: . 
  * Text Domain: jlplg_prvpol
