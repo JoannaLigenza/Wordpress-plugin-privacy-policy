@@ -31,6 +31,7 @@ defined( 'ABSPATH' ) or die( 'hey, you don\'t have an access to read this site' 
 
 // jlplg_prvpol - jl plugin - privacy policy
 
+
 // adding styles and scripts
 function jlplg_prvpol_enqueue_scripts() {
     // load styles and script for plugin only if cookies are not accepted
@@ -75,6 +76,7 @@ function jlplg_prvpol_set_cookie() {
 }
 add_action('init', 'jlplg_prvpol_set_cookie');
 
+// setting cookie - ajax version
 function jlplg_prvpol_set_cookie_ajax() {
     // make action when cookie accept button was clicked - without page reloading
     $domain = explode( 'https://', site_url() );
@@ -166,6 +168,13 @@ function jlplg_prvpol_add_new_page() {
 
 // adding content to menu page
 function jlplg_prvpol_page_html_content() {
+    if ( ! current_user_can( 'manage_options' ) ) {
+        ?>
+        <div style="font-size: 20px; margin-top: 20px"> <?php echo esc_html( "You don't have permission to manage this page" ); ?> </div>
+        <?php
+        return;
+    }
+
     ?>
     <div class="wrap">
         <h2><?php echo esc_html( 'Privacy Policy & Cookie Info') ?></h2>
@@ -236,9 +245,11 @@ function jlplg_prvpol_add_new_settings() {
     register_setting( 'jl_options', 'jlplg_prvpol-field6-text-color', $layout_settins_field2_arg);
     register_setting( 'jl_options', 'jlplg_prvpol-field7-button-background-color', $layout_settins_field3_arg);
     register_setting( 'jl_options', 'jlplg_prvpol-field8-button-text-color', $layout_settins_field4_arg);
+
     // adding sections
     add_settings_section( 'jlplg_prvpol_section_1_configuration', 'Configuration', null, 'jl-slug' );  // id (Slug-name to identify the section), title, callback, page slug
     add_settings_section( 'jlplg_prvpol_section_2_layout', 'Layout', null, 'jl-slug-2' );
+
     // adding fields for section
     add_settings_field( 'field-1-cookie-message', 'Cookie Message', 'jlplg_prvpol_field_1_callback', 'jl-slug', 'jlplg_prvpol_section_1_configuration' );       // id (Slug-name to identify the field), title, callback, slug-name of the settings page on which to show the section, section, args (attr for field)
     add_settings_field( 'field-2-privacy-policy-button', 'Display Privacy Policy Button', 'jlplg_prvpol_field_2_callback', 'jl-slug', 'jlplg_prvpol_section_1_configuration' );
