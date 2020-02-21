@@ -22,3 +22,11 @@ function delete_settings() {
 }
 
 delete_settings();
+
+function delete_cookies() {
+    unset( $_COOKIE['cookie-accepted'] );
+    setcookie( sanitize_key( 'cookie-accepted' ), '', 1);
+}
+
+delete_cookies();
+
