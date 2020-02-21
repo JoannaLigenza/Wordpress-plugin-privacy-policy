@@ -148,7 +148,7 @@ function jlplg_prvpol_add_new_page() {
     // add_menu_page(
     //     'Privacy Policy',                                       // $page_title
     //     'Privacy Policy',                                       // $menu_title
-    //     'manage_options',                                       // $capability
+    //     'manage_options',                                       // $capability -> "manage_options" - only for admins
     //     'privacy-policy',                                       // $menu_slug
     //     'jlplg_prvpol_page_html_content',                       // $function
     //     plugin_dir_url(__FILE__) . 'images/icon_wporg.png',     // $icon_url
@@ -255,11 +255,12 @@ add_action( 'admin_init', 'jlplg_prvpol_add_new_settings' );
 function jlplg_prvpol_field_1_callback() {
     echo '<textarea type="text" cols="50" rows="4" name="jlplg_prvpol-field1-cookie-message" >'.esc_textarea( get_option( "jlplg_prvpol-field1-cookie-message" ) ).'</textarea>';
 }
-
+// admin_url()."options-privacy.php"
 // field 2 - show privacy policy button
 function jlplg_prvpol_field_2_callback() {
     if ( get_option( "jlplg_prvpol-field2-checkbox-privacy-policy" ) ) {
         echo '<input type="checkbox" name="jlplg_prvpol-field2-checkbox-privacy-policy" checked />';
+        echo ' <a href="'.esc_url(admin_url()."options-privacy.php").'" style="margin-left: 20px">Set Privacy Policy Page</a>';
     } else {
         echo '<input type="checkbox" name="jlplg_prvpol-field2-checkbox-privacy-policy" />';
     }
