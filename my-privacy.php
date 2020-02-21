@@ -31,6 +31,15 @@ defined( 'ABSPATH' ) or die( 'hey, you don\'t have an access to read this site' 
 
 // jlplg_prvpol - jl plugin - privacy policy
 
+// adding 'Settings' link to plugin links
+function add_plugin_settings_link( $links ) {
+    $url = admin_url()."options-general.php?page=privacy-policy";
+    $settings_link = '<a href="'.esc_url( $url ).'">'.esc_html( 'Settings' ).'</a>';
+    $links[] = $settings_link;
+    return $links;
+}
+add_filter('plugin_action_links_'.plugin_basename(__FILE__), 'add_plugin_settings_link');
+
 
 // adding styles and scripts
 function jlplg_prvpol_enqueue_scripts() {
@@ -106,18 +115,17 @@ add_action( 'init', 'jlplg_prvpol_display_cookie_notice');
 // allowed html code in plugin message
 function jlplg_prvpol_allowed_html() {
     return array(
-            'a' => array(
-                'href' => array(),
-                'title' => array()
-            ),
-            'br' => array(),
-            'em' => array(),
-            'strong' => array(),
-        );
+        'a' => array(
+            'href' => array(),
+            'title' => array()
+        ),
+        'br' => array(),
+        'em' => array(),
+        'strong' => array(),
+    );
 }
 
-
-// code for displaying cookie info on page
+// displaying cookie info on page
 function jlplg_prvpol_display_cookie_info() {
     $cookie_message = get_option( "jlplg_prvpol-field1-cookie-message", 'We use cookies to improve your experience on our website. By browsing this website, you agree to our use of cookies' );
     $cookie_info_button = get_option( "jlplg_prvpol-field3-cookie-button-text", 'Accept Cookies' );
@@ -166,35 +174,8 @@ function jlplg_prvpol_add_new_page() {
     );
 }
 
-// adding content to menu page
-function jlplg_prvpol_page_html_content() {
-    if ( ! current_user_can( 'manage_options' ) ) {
-        ?>
-        <div style="font-size: 20px; margin-top: 20px"> <?php echo esc_html( "You don't have permission to manage this page" ); ?> </div>
-        <?php
-        return;
-    }
 
-    ?>
-    <div class="wrap">
-        <h2><?php echo esc_html( 'Privacy Policy & Cookie Info') ?></h2>
-        <form action="options.php" method="post">
-            <?php
-            // outpus settings fields (without this there is error after clicking save settings button)
-            settings_fields( 'jl_options' );                        // A settings group name. This should match the group name used in register_setting()
-            // output setting sections and their fields
-            do_settings_sections( 'jl-slug' );                      // The slug name of settings sections you want to output.
-            echo "<hr>";
-            do_settings_sections( 'jl-slug-2' );                      // The slug name of settings sections you want to output.
-            // output save settings button
-            submit_button( 'Save Settings', 'primary', 'submit', true );     // Button text, button type, button id, wrap, any other attribute
-            ?>
-        </form>
-    </div>
-    <?php
-}
-
-// adding settings and sections
+// adding settings and sections to page in admin menu
 function jlplg_prvpol_add_new_settings() {
     // register settings
     $configuration_settins_field1_arg = array(
@@ -262,11 +243,12 @@ function jlplg_prvpol_add_new_settings() {
 }
 add_action( 'admin_init', 'jlplg_prvpol_add_new_settings' );
 
+
 // field 1 - cookie message
 function jlplg_prvpol_field_1_callback() {
     echo '<textarea type="text" cols="50" rows="4" name="jlplg_prvpol-field1-cookie-message" >'.esc_textarea( get_option( "jlplg_prvpol-field1-cookie-message" ) ).'</textarea>';
 }
-// admin_url()."options-privacy.php"
+
 // field 2 - show privacy policy button
 function jlplg_prvpol_field_2_callback() {
     if ( get_option( "jlplg_prvpol-field2-checkbox-privacy-policy" ) ) {
@@ -340,5 +322,35 @@ function jlplg_prvpol_sanitize_color_input( $input ) {
     }
     return $input;
 }
+
+
+// adding content to menu page
+function jlplg_prvpol_page_html_content() {
+    if ( ! current_user_can( 'manage_options' ) ) {
+        ?>
+        <div style="font-size: 20px; margin-top: 20px"> <?php echo esc_html( "You don't have permission to manage this page" ); ?> </div>
+        <?php
+        return;
+    }
+
+    ?>
+    <div class="wrap">
+        <h2><?php echo esc_html( 'Privacy Policy & Cookie Info') ?></h2>
+        <form action="options.php" method="post">
+            <?php
+            // outpus settings fields (without this there is error after clicking save settings button)
+            settings_fields( 'jl_options' );                        // A settings group name. This should match the group name used in register_setting()
+            // output setting sections and their fields
+            do_settings_sections( 'jl-slug' );                      // The slug name of settings sections you want to output.
+            echo "<hr>";
+            do_settings_sections( 'jl-slug-2' );                      // The slug name of settings sections you want to output.
+            // output save settings button
+            submit_button( 'Save Settings', 'primary', 'submit', true );     // Button text, button type, button id, wrap, any other attribute
+            ?>
+        </form>
+    </div>
+    <?php
+}
+
 
 
