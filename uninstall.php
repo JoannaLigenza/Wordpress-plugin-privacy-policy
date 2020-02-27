@@ -11,7 +11,7 @@ if ( ! defined( 'WP_UNINSTALL_PLUGIN' ) ) {
     die;
 }
 
-function delete_settings() {
+function jlplg_lovecoding_delete_settings() {
     delete_option( 'jlplg_prvpol-field1-cookie-message' );
     delete_option( 'jlplg_prvpol-field2-checkbox-privacy-policy' );
     delete_option( 'jlplg_prvpol-field3-cookie-button-text' );
@@ -21,12 +21,12 @@ function delete_settings() {
     delete_option( 'jlplg_prvpol-field7-button-text-color' );
 }
 
-delete_settings();
+jlplg_lovecoding_delete_settings();
 
-function delete_cookies() {
+function jlplg_lovecoding_delete_cookies() {
     unset( $_COOKIE['cookie-accepted'] );
     setcookie( sanitize_key( 'cookie-accepted' ), '', 1);
 }
 
-delete_cookies();
+jlplg_lovecoding_delete_cookies();
 

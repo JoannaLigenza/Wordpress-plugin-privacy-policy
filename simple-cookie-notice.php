@@ -43,7 +43,7 @@ function jlplg_lovecoding_enqueue_scripts() {
     // load styles and script for plugin only if cookies are not accepted
     if ( !isset( $_COOKIE['cookie-accepted'] ) ) {
         wp_enqueue_style( 'styles', plugins_url( 'styles.css', __FILE__ ) );
-        wp_enqueue_script( 'jlplg_lovecoding_script', plugins_url( 'public/js/jlplg-prvpol-script.js', __FILE__ ), array( 'jquery' ), true );
+        wp_enqueue_script( 'jlplg_lovecoding_script', plugins_url( 'public/js/jlplg_lovecoding_script.js', __FILE__ ), array( 'jquery' ), true );
         wp_localize_script( 'jlplg_lovecoding_script', 'jlplg_lovecoding_script_ajax_object',
             array( 
                 'ajax_url' => admin_url( 'admin-ajax.php' ),
@@ -134,13 +134,13 @@ function jlplg_lovecoding_display_cookie_info() {
     $cookie_info_placemet = get_option( "jlplg_lovecoding-field4-cookie-plugin-placement", 'bottom' );
     $allowed_html = jlplg_lovecoding_allowed_html();
 ?>
-    <div class="jlplg-prvpol-cookie-info-container" style="background-color: <?php echo esc_attr( $background_color ).'; '.esc_attr( $cookie_info_placemet ).': 0' ?>" id="jlplg-prvpol-cookie-info-container">
+    <div class="jlplg-lovecoding-cookie-info-container" style="background-color: <?php echo esc_attr( $background_color ).'; '.esc_attr( $cookie_info_placemet ).': 0' ?>" id="jlplg-lovecoding-cookie-info-container">
         <form action="" method="post" id="cookie-form">
-            <p class="jlplg-prvpol-cookie-info" style="color: <?php echo esc_attr( $text_color ) ?>"><?php echo wp_kses( $cookie_message, $allowed_html ); ?></p>
-            <div class="jlplg-prvpol-buttons">
-            <button type="submit" name="cookie-accept-button" class="jlplg-prvpol-cookie-accept-button" id="cookie-accept-button" style="background-color: <?php echo esc_attr( $button_background_color ) ?>" ><span style="color: <?php echo esc_attr( $button_text_color ) ?>"><?php echo esc_html( $cookie_info_button ); ?></span></button>
+            <p class="jlplg-lovecoding-cookie-info" style="color: <?php echo esc_attr( $text_color ) ?>"><?php echo wp_kses( $cookie_message, $allowed_html ); ?></p>
+            <div class="jlplg-lovecoding-buttons">
+            <button type="submit" name="cookie-accept-button" class="jlplg-lovecoding-cookie-accept-button" id="cookie-accept-button" style="background-color: <?php echo esc_attr( $button_background_color ) ?>" ><span style="color: <?php echo esc_attr( $button_text_color ) ?>"><?php echo esc_html( $cookie_info_button ); ?></span></button>
             <?php if ( $show_policy_privacy ) { ?>
-            <button type="submit" name="cookie-privacy-policy" class="jlplg-prvpol-cookie-privacy-policy" id="cookie-privacy-policy" style="background-color: <?php echo esc_attr( $button_background_color ) ?>"><span style="color: <?php echo esc_attr( $button_text_color ) ?>">Privacy Policy</span></button>
+            <button type="submit" name="cookie-privacy-policy" class="jlplg-lovecoding-cookie-privacy-policy" id="cookie-privacy-policy" style="background-color: <?php echo esc_attr( $button_background_color ) ?>"><span style="color: <?php echo esc_attr( $button_text_color ) ?>">Privacy Policy</span></button>
             <?php } ?>
             </div>
         </form>
