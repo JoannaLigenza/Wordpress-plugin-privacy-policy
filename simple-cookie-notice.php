@@ -138,9 +138,9 @@ function jlplg_lovecoding_display_cookie_info() {
         <form action="" method="post" id="cookie-form">
             <p class="jlplg-lovecoding-cookie-info" style="color: <?php echo esc_attr( $text_color ) ?>"><?php echo wp_kses( $cookie_message, $allowed_html ); ?></p>
             <div class="jlplg-lovecoding-buttons">
-            <button type="submit" name="cookie-accept-button" class="jlplg-lovecoding-cookie-accept-button" id="cookie-accept-button" style="background-color: <?php echo esc_attr( $button_background_color ) ?>" ><span style="color: <?php echo esc_attr( $button_text_color ) ?>"><?php echo esc_html( $cookie_info_button ); ?></span></button>
+            <button type="submit" name="cookie-accept-button" class="jlplg-lovecoding-cookie-accept-button" id="cookie-accept-button" style="background-color: <?php echo esc_attr( $button_background_color ) ?>" ><span class="button-text" style="color: <?php echo esc_attr( $button_text_color ) ?>"><?php echo esc_html( $cookie_info_button ); ?></span></button>
             <?php if ( $show_policy_privacy ) { ?>
-            <button type="submit" name="cookie-privacy-policy" class="jlplg-lovecoding-cookie-privacy-policy" id="cookie-privacy-policy" style="background-color: <?php echo esc_attr( $button_background_color ) ?>"><span style="color: <?php echo esc_attr( $button_text_color ) ?>">Privacy Policy</span></button>
+            <button type="submit" name="cookie-privacy-policy" class="jlplg-lovecoding-cookie-privacy-policy" id="cookie-privacy-policy" style="background-color: <?php echo esc_attr( $button_background_color ) ?>"><span class="button-text" style="color: <?php echo esc_attr( $button_text_color ) ?>">Privacy Policy</span></button>
             <?php } ?>
             </div>
         </form>

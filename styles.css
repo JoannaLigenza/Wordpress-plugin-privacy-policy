@@ -10,6 +10,7 @@
     display: inline-block;
     padding: 10px;
     margin: 5px 0;
+    font-size: 16px;
 }
 
 .jlplg-lovecoding-buttons {
@@ -32,4 +33,10 @@
 .jlplg-lovecoding-cookie-accept-button:focus, .jlplg-lovecoding-cookie-privacy-policy:focus {
     border: 2px solid rgb(143, 143, 143);
     outline: none;
+}
+
+.button-text {
+    font-size: 16px;
+    text-transform: capitalize;
+    font-weight: 400;
 }
