@@ -2,7 +2,7 @@
 /**
  * Plugin Name: Simple Cookie Notice
  * Description: In simple way add personalized cookie info and link to wordpress privacy policy page.
- * Version: 1.0.0
+ * Version: 1.0.1
  * Requires at least: 5.0
  * Requires PHP: 5.0
  * Author: JL-lovecoding
@@ -74,7 +74,7 @@ function jlplg_lovecoding_set_cookie() {
     if ( isset( $_POST['cookie-privacy-policy'] ) ) {
         $privacy_policy = get_privacy_policy_url();
         if ( empty($privacy_policy) ) {
-            $privacy_policy = 'privacy-policy';
+            $privacy_policy = get_home_url().'/privacy-policy';
         }
         wp_safe_redirect( $privacy_policy );
         exit;
@@ -152,22 +152,13 @@ function jlplg_lovecoding_display_cookie_info() {
 // adding new page to admin menu
 add_action( 'admin_menu', 'jlplg_lovecoding_add_new_page' );
 function jlplg_lovecoding_add_new_page() {
-    // add_menu_page(
-    //     'Privacy Policy',                                       // $page_title
-    //     'Privacy Policy',                                       // $menu_title
-    //     'manage_options',                                       // $capability -> "manage_options" - only for admins
-    //     'privacy-policy',                                       // $menu_slug
-    //     'jlplg_lovecoding_page_html_content',                       // $function
-    //     plugin_dir_url(__FILE__) . 'images/icon_wporg.png',     // $icon_url
-    //     90                                                      // $position
-    // );
     add_submenu_page(
         'options-general.php',                                  // $parent_slug
         'Privacy Policy',                                       // $page_title
         'Privacy Policy',                                       // $menu_title
         'manage_options',                                       // $capability
         'privacy-policy',                                       // $menu_slug
-        'jlplg_lovecoding_page_html_content'                        // $function
+        'jlplg_lovecoding_page_html_content'                    // $function
     );
 }
 

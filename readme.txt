@@ -41,16 +41,14 @@ No questions yet.
 
 
 == Upgrade Notice ==
-1.0.1
-New: Setted font size and weight
-Corrected: Removed unneccessary js variables
+
+= 1.0.1 =
+* Setted font size and font weight
+* Removed unneccessary js variables
+* Corrected redirection to privacy policy page
+
 1.0.0
 Initial release
-
-
-== Changelog ==
-1.0.1
-Changed font size and weight
 
 
 
