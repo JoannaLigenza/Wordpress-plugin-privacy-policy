@@ -234,12 +234,12 @@ add_action( 'admin_init', 'jlplg_lovecoding_add_new_settings' );
 
 // field 1 - cookie message
 function jlplg_lovecoding_field_1_callback() {
-    echo '<textarea type="text" cols="50" rows="4" name="jlplg_lovecoding-field1-cookie-message" >'.esc_textarea( get_option( "jlplg_lovecoding-field1-cookie-message" ) ).'</textarea>';
+    echo '<textarea type="text" cols="50" rows="4" name="jlplg_lovecoding-field1-cookie-message" >'.esc_textarea( get_option( "jlplg_lovecoding-field1-cookie-message", 'We use cookies to improve your experience on our website. By browsing this website, you agree to our use of cookies' ) ).'</textarea>';
 }
 
 // field 2 - show privacy policy button
 function jlplg_lovecoding_field_2_callback() {
-    if ( get_option( "jlplg_lovecoding-field2-checkbox-privacy-policy" ) ) {
+    if ( get_option( "jlplg_lovecoding-field2-checkbox-privacy-policy", false ) ) {
         echo '<input type="checkbox" name="jlplg_lovecoding-field2-checkbox-privacy-policy" checked />';
         echo ' <a href="'.esc_url(admin_url()."options-privacy.php").'" style="margin-left: 20px">Set Privacy Policy Page</a>';
     } else {
@@ -249,7 +249,7 @@ function jlplg_lovecoding_field_2_callback() {
 
 // field 3 - cookie button text
 function jlplg_lovecoding_field_3_callback() {
-    echo '<input type="text" name="jlplg_lovecoding-field3-cookie-button-text" value="'.esc_html( get_option( "jlplg_lovecoding-field3-cookie-button-text" ) ).'" />';
+    echo '<input type="text" name="jlplg_lovecoding-field3-cookie-button-text" value="'.esc_html( get_option( "jlplg_lovecoding-field3-cookie-button-text", 'Accept Cookies' ) ).'" />';
 }
 
 // field 4 - cookie info placement
@@ -263,22 +263,22 @@ function jlplg_lovecoding_field_4_callback() {
 
 // field 5 - background color
 function jlplg_lovecoding_field_5_callback() {
-    echo '<input type="color" name="jlplg_lovecoding-field5-background-color" value="'.esc_html( get_option( "jlplg_lovecoding-field5-background-color" ) ).'" />';
+    echo '<input type="color" name="jlplg_lovecoding-field5-background-color" value="'.esc_html( get_option( "jlplg_lovecoding-field5-background-color", '#444546' ) ).'" />';
 }
 
 // field 6 - text color
 function jlplg_lovecoding_field_6_callback() {
-    echo '<input type="color" name="jlplg_lovecoding-field6-text-color" value="'.esc_html( get_option( "jlplg_lovecoding-field6-text-color" ) ).'" />';
+    echo '<input type="color" name="jlplg_lovecoding-field6-text-color" value="'.esc_html( get_option( "jlplg_lovecoding-field6-text-color", '#ffffff' ) ).'" />';
 }
 
 // field 7 - button background color
 function jlplg_lovecoding_field_7_callback() {
-    echo '<input type="color" name="jlplg_lovecoding-field7-button-background-color" value="'.esc_html( get_option( "jlplg_lovecoding-field7-button-background-color" ) ).'" />';
+    echo '<input type="color" name="jlplg_lovecoding-field7-button-background-color" value="'.esc_html( get_option( "jlplg_lovecoding-field7-button-background-color", '#dcf1ff' ) ).'" />';
 }
 
 // field 8 - button text color
 function jlplg_lovecoding_field_8_callback() {
-    echo '<input type="color" name="jlplg_lovecoding-field8-button-text-color" value="'.esc_html( get_option( "jlplg_lovecoding-field8-button-text-color" ) ).'" />';
+    echo '<input type="color" name="jlplg_lovecoding-field8-button-text-color" value="'.esc_html( get_option( "jlplg_lovecoding-field8-button-text-color", '#000000' ) ).'" />';
 }
 
 // sanitize textarea

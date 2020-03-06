@@ -46,6 +46,7 @@ No questions yet.
 * Setted font size and font weight
 * Removed unneccessary js variables
 * Corrected redirection to privacy policy page
+* Added default settings on admin side
 
 1.0.0
 Initial release
