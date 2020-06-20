@@ -2,9 +2,9 @@
 /**
  * Plugin Name: Simple Cookie Notice
  * Description: In simple way add personalized cookie info and link to wordpress privacy policy page.
- * Version: 1.1
+ * Version: 1.2
  * Requires at least: 5.0
- * Requires PHP: 5.0
+ * Requires PHP: 7.0
  * Author: JL-lovecoding
  * Author URI: https://love-coding.pl/en
  * Text Domain: jlplg_lovecoding

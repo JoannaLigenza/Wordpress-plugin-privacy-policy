@@ -2,9 +2,9 @@
 Contributors: lovecoding
 Tags: cookie, cookie notice, cookie consent, cookie law, privacy policy, cookies, 
 Requires at least: 5.0
-Tested up to: 5.3
-Requires PHP: 5.0
-Stable tag: 1.1
+Tested up to: 5.4
+Requires PHP: 7.0
+Stable tag: 1.2
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl.html
 
