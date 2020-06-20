@@ -114,11 +114,15 @@ function jlplg_lovecoding_allowed_html() {
     return array(
         'a' => array(
             'href' => array(),
-            'title' => array()
+            'title' => array(),
+            'class' => array()
         ),
         'br' => array(),
         'em' => array(),
         'strong' => array(),
+        'span' => array(
+            'class' => array()
+        ),
     );
 }
 
@@ -334,6 +338,7 @@ function jlplg_lovecoding_page_html_content() {
             do_settings_sections( 'jl-slug-2' );                      // The slug name of settings sections you want to output.
             // output save settings button
             submit_button( 'Save Settings', 'primary', 'submit', true );     // Button text, button type, button id, wrap, any other attribute
+            echo 'val '.get_option( "jlplg_lovecoding-field4-cookie-plugin-placement" );
             ?>
         </form>
     </div>

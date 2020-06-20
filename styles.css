@@ -13,6 +13,10 @@
     font-size: 16px;
 }
 
+.jlplg-lovecoding-cookie-info a {
+    color: inherit;
+}
+
 .jlplg-lovecoding-buttons {
     display: inline-block;
     margin-bottom: 10px;
