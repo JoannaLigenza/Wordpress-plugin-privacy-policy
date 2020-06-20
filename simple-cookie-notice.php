@@ -43,7 +43,7 @@ function jlplg_lovecoding_enqueue_scripts() {
     // load styles and script for plugin only if cookies are not accepted
     if ( !isset( $_COOKIE['cookie-accepted'] ) ) {
         wp_enqueue_style( 'styles', plugins_url( 'styles.css', __FILE__ ) );
-        wp_enqueue_script( 'jlplg_lovecoding_script', plugins_url( 'public/js/jlplg_lovecoding_script.js', __FILE__ ), array( 'jquery' ), true );
+        wp_enqueue_script( 'jlplg_lovecoding_script', plugins_url( 'public/js/jlplg_lovecoding_script.js', __FILE__ ), array( 'jquery' ), 1.0, true );
         wp_localize_script( 'jlplg_lovecoding_script', 'jlplg_lovecoding_script_ajax_object',
             array( 
                 'ajax_url' => admin_url( 'admin-ajax.php' ),

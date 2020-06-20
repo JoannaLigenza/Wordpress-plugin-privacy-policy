@@ -42,6 +42,10 @@ No questions yet.
 
 == Upgrade Notice ==
 
+= 1.2 =
+* Changed styles
+* Moved script to footer
+
 = 1.1 =
 * Setted font size and font weight
 * Removed unneccessary js variables
