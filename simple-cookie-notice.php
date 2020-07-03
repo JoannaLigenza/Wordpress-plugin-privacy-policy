@@ -103,7 +103,7 @@ add_action( 'wp_ajax_nopriv_set_cookie_ajax', 'jlplg_lovecoding_set_cookie_ajax'
 // display cookie notice if cookie info is not set
 function jlplg_lovecoding_display_cookie_notice() {    
     if ( !isset( $_COOKIE['cookie-accepted'] ) ) {
-        add_action('wp_body_open', 'jlplg_lovecoding_display_cookie_info');
+        add_action('wp_footer', 'jlplg_lovecoding_display_cookie_info');
     }
 }
 add_action( 'init', 'jlplg_lovecoding_display_cookie_notice');
@@ -138,13 +138,13 @@ function jlplg_lovecoding_display_cookie_info() {
     $cookie_info_placemet = get_option( "jlplg_lovecoding-field4-cookie-plugin-placement", 'bottom' );
     $allowed_html = jlplg_lovecoding_allowed_html();
 ?>
-    <div class="jlplg-lovecoding-cookie-info-container" style="background-color: <?php echo esc_attr( $background_color ).'; '.esc_attr( $cookie_info_placemet ).': 0' ?>" id="jlplg-lovecoding-cookie-info-container">
+    <div class="jlplg-lovecoding-cookie-info-container" style="<?php echo 'background-color: '.esc_attr( $background_color ).'; '.esc_attr( $cookie_info_placemet ).': 0' ?>" id="jlplg-lovecoding-cookie-info-container">
         <form action="" method="post" id="cookie-form">
-            <p class="jlplg-lovecoding-cookie-info" style="color: <?php echo esc_attr( $text_color ) ?>"><?php echo wp_kses( $cookie_message, $allowed_html ); ?></p>
+            <p class="jlplg-lovecoding-cookie-info" style="<?php echo 'color: '.esc_attr( $text_color ) ?>"><?php echo wp_kses( $cookie_message, $allowed_html ); ?></p>
             <div class="jlplg-lovecoding-buttons">
-            <button type="submit" name="cookie-accept-button" class="jlplg-lovecoding-cookie-accept-button" id="cookie-accept-button" style="background-color: <?php echo esc_attr( $button_background_color ) ?>" ><span class="button-text" style="color: <?php echo esc_attr( $button_text_color ) ?>"><?php echo esc_html( $cookie_info_button ); ?></span></button>
+            <button type="submit" name="cookie-accept-button" class="jlplg-lovecoding-cookie-accept-button" id="cookie-accept-button" style="<?php echo 'background-color: '.esc_attr( $button_background_color ) ?>" ><span class="button-text" style="<?php echo 'color: '.esc_attr( $button_text_color ) ?>"><?php echo esc_html( $cookie_info_button ); ?></span></button>
             <?php if ( $show_policy_privacy ) { ?>
-            <button type="submit" name="cookie-privacy-policy" class="jlplg-lovecoding-cookie-privacy-policy" id="cookie-privacy-policy" style="background-color: <?php echo esc_attr( $button_background_color ) ?>"><span class="button-text" style="color: <?php echo esc_attr( $button_text_color ) ?>">Privacy Policy</span></button>
+            <button type="submit" name="cookie-privacy-policy" class="jlplg-lovecoding-cookie-privacy-policy" id="cookie-privacy-policy" style="<?php echo 'background-color: '.esc_attr( $button_background_color ) ?>"><span class="button-text" style="<?php echo 'color: '.esc_attr( $button_text_color ) ?>"><?php esc_html_e( 'Privacy Policy', 'jlplg_lovecoding' ) ?></span></button>
             <?php } ?>
             </div>
         </form>
@@ -320,7 +320,7 @@ function jlplg_lovecoding_sanitize_color_input( $input ) {
 function jlplg_lovecoding_page_html_content() {
     if ( ! current_user_can( 'manage_options' ) ) {
         ?>
-        <div style="font-size: 20px; margin-top: 20px"> <?php echo esc_html( "You don't have permission to manage this page" ); ?> </div>
+        <div style="font-size: 20px; margin-top: 20px"> <?php echo esc_html_e( "You don't have permission to manage this page", "jlplg_lovecoding" ); ?> </div>
         <?php
         return;
     }

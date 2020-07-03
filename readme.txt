@@ -4,7 +4,7 @@ Tags: cookie, cookie notice, cookie consent, cookie law, privacy policy, cookies
 Requires at least: 5.0
 Tested up to: 5.4
 Requires PHP: 7.0
-Stable tag: 1.2
+Stable tag: 1.3
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl.html
 
@@ -42,9 +42,13 @@ No questions yet.
 
 == Upgrade Notice ==
 
+= 1.3 =
+* Moved plugin code to footer
+
 = 1.2 =
 * Changed styles
 * Moved script to footer
+* Changed way of displaying inline styles
 
 = 1.1 =
 * Setted font size and font weight
