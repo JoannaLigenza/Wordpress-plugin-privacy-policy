@@ -2,9 +2,9 @@
 Contributors: lovecoding
 Tags: cookie, cookie notice, cookie consent, cookie law, privacy policy, cookies, 
 Requires at least: 5.0
-Tested up to: 5.4
+Tested up to: 5.6
 Requires PHP: 7.0
-Stable tag: 1.3
+Stable tag: 1.4
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl.html
 
@@ -41,6 +41,9 @@ No questions yet.
 
 
 == Upgrade Notice ==
+
+= 1.4 =
+* Removed unneccessary action attribute from form tag
 
 = 1.3 =
 * Moved plugin code to footer
