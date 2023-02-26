@@ -139,7 +139,6 @@ function jlplg_lovecoding_display_cookie_info() {
     $allowed_html = jlplg_lovecoding_allowed_html();
 ?>
     <div class="jlplg-lovecoding-cookie-info-container" style="<?php echo 'background-color: '.esc_attr( $background_color ).'; '.esc_attr( $cookie_info_placemet ).': 0' ?>" id="jlplg-lovecoding-cookie-info-container">
-       <!-- remove action method!!! -->
         <form method="post" id="cookie-form"> 
             <p class="jlplg-lovecoding-cookie-info" style="<?php echo 'color: '.esc_attr( $text_color ) ?>"><?php echo wp_kses( $cookie_message, $allowed_html ); ?></p>
             <div class="jlplg-lovecoding-buttons">

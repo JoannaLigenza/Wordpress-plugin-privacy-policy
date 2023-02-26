@@ -42,6 +42,10 @@ No questions yet.
 
 == Upgrade Notice ==
 
+= 1.6 =
+* Changed way of saving cookies by javaScript
+* Added unique version to plugin script file, to not cached it
+
 = 1.4 =
 * Removed unneccessary action attribute from form tag
 

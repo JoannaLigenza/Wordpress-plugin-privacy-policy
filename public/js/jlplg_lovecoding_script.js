@@ -8,7 +8,7 @@ jQuery( document ).ready( function( $ ) {
                 url     :   jlplg_lovecoding_script_ajax_object.ajax_url,   // wp_localize_script -> jlplg_lovecoding_script_ajax_object.ajax_url
                 method  :   'post',
                 dataType:   'json',
-                data    :   { action: 'set_cookie_ajax' },      // action: function, that is invoked by ajax (full name: jlplg_lovecoding_set_cookie_ajax)
+                data    :   { action: 'set_cookie_ajax' },
                 success :   function(response) {
                                 if (response === 'cookies-added') {
                                     $('#jlplg-lovecoding-cookie-info-container').css('display', 'none');
@@ -17,8 +17,7 @@ jQuery( document ).ready( function( $ ) {
                 error   :   function(){
                                 console.log('connection error ');
                 }
-                })
-                // 
+                });
             });
         }
     }
