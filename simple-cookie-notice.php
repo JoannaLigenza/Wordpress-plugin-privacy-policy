@@ -2,7 +2,7 @@
 /**
  * Plugin Name: Simple Cookie Notice
  * Description: In simple way add personalized cookie info and link to wordpress privacy policy page.
- * Version: 1.7
+ * Version: 1.8
  * Requires at least: 5.0
  * Requires PHP: 7.0
  * Author: JL-lovecoding
@@ -194,7 +194,7 @@ function jlplg_lovecoding_add_new_settings() {
     add_settings_field( 'field-2-privacy-policy-button', 'Display Privacy Policy Button', 'jlplg_lovecoding_field_2_callback', 'jl-slug', 'jlplg_lovecoding_section_1_configuration' );
     add_settings_field( 'field-3-cookie-button-text', 'Cookie Button Text', 'jlplg_lovecoding_field_3_callback', 'jl-slug', 'jlplg_lovecoding_section_1_configuration' );
     add_settings_field( 'field-4-cookie-plugin-placement', 'Cookie info placement', 'jlplg_lovecoding_field_4_callback', 'jl-slug', 'jlplg_lovecoding_section_1_configuration' );
-    add_settings_field( 'field-9-cookie-expire-time', 'Cookie expire time', 'jlplg_lovecoding_field_9_callback', 'jl-slug', 'jlplg_lovecoding_section_1_configuration' );
+    add_settings_field( 'field-9-cookie-expire-time', 'Cookie expire time (in days)', 'jlplg_lovecoding_field_9_callback', 'jl-slug', 'jlplg_lovecoding_section_1_configuration' );
     add_settings_field( 'field-5-cookie-background-color', 'Background color', 'jlplg_lovecoding_field_5_callback', 'jl-slug-2', 'jlplg_lovecoding_section_2_layout' );
     add_settings_field( 'field-6-cookie-text-color', 'Text color', 'jlplg_lovecoding_field_6_callback', 'jl-slug-2', 'jlplg_lovecoding_section_2_layout' );
     add_settings_field( 'field-7-cookie-button-background-color', 'Button background color', 'jlplg_lovecoding_field_7_callback', 'jl-slug-2', 'jlplg_lovecoding_section_2_layout' );
