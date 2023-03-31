@@ -2,7 +2,7 @@
 /**
  * Plugin Name: Simple Cookie Notice
  * Description: In simple way add personalized cookie info and link to wordpress privacy policy page.
- * Version: 1.3
+ * Version: 1.7
  * Requires at least: 5.0
  * Requires PHP: 7.0
  * Author: JL-lovecoding
@@ -43,71 +43,10 @@ function jlplg_lovecoding_enqueue_scripts() {
     // load styles and script for plugin only if cookies are not accepted
     if ( !isset( $_COOKIE['cookie-accepted'] ) ) {
         wp_enqueue_style( 'styles', plugins_url( 'styles.css', __FILE__ ) );
-        wp_enqueue_script( 'jlplg_lovecoding_script', plugins_url( 'public/js/jlplg_lovecoding_script.js', __FILE__ ), array( 'jquery' ), 1.0, true );
-        wp_localize_script( 'jlplg_lovecoding_script', 'jlplg_lovecoding_script_ajax_object',
-            array( 
-                'ajax_url' => admin_url( 'admin-ajax.php' ),
-            )
-        );
+        wp_enqueue_script( 'jlplg_lovecoding_script', plugins_url( 'public/js/jlplg_lovecoding_script.js', __FILE__ ), array(), time(), true );
     }
 }
 add_action( 'wp_enqueue_scripts', 'jlplg_lovecoding_enqueue_scripts' );
-
-
-// setting cookie - this function must be called before html code is displayed
-function jlplg_lovecoding_set_cookie() {
-    // make action when cookie accept button was clicked
-    if ( isset( $_POST['cookie-accept-button'] ) ) {
-        $domain = explode( 'https://', site_url() );
-        if ( ! is_ssl() ) {
-            $domain = explode( 'http://', site_url() );
-        }
-        $domain = explode('/', $domain[1], 2);
-        $path = empty($domain[1]) ? "/" : "/".$domain[1]."/";
-        setcookie( sanitize_key( 'cookie-accepted' ), 1, time()+3600*24*14, $path );
-        $current_url = is_ssl() ? esc_url('https://'.$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI']) : esc_url('http://'.$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI']);
-        wp_safe_redirect( $current_url );
-        exit;
-    }
-
-    // make action when privacy policy button was clicked
-    if ( isset( $_POST['cookie-privacy-policy'] ) ) {
-        $privacy_policy = get_privacy_policy_url();
-        if ( empty($privacy_policy) ) {
-            $privacy_policy = get_home_url().'/privacy-policy';
-        }
-        wp_safe_redirect( $privacy_policy );
-        exit;
-    }
-}
-add_action('init', 'jlplg_lovecoding_set_cookie');
-
-// setting cookie - ajax version
-function jlplg_lovecoding_set_cookie_ajax() {
-    // make action when cookie accept button was clicked - without page reloading
-    $domain = explode( 'https://', site_url() );
-    if ( ! is_ssl() ) {
-        $domain = explode( 'http://', site_url() );
-    }
-    $domain = explode('/', $domain[1], 2);
-    $path = empty($domain[1]) ? "/" : "/".$domain[1]."/";
-    // setcookie( sanitize_key( 'cookie-accepted' ), 1, time()+3600*24*14, $path, $domain[0] );     // when add $domain[0], then cookies are setted to domain and all subdomains (in console domain is visible with dot - .domain)
-    setcookie( sanitize_key( 'cookie-accepted' ), 1, time()+3600*24*14, $path );
-    echo json_encode("cookies-added");
-    die();
-}
-add_action( 'wp_ajax_set_cookie_ajax', 'jlplg_lovecoding_set_cookie_ajax' );
-add_action( 'wp_ajax_nopriv_set_cookie_ajax', 'jlplg_lovecoding_set_cookie_ajax' );
-
-
-// display cookie notice if cookie info is not set
-function jlplg_lovecoding_display_cookie_notice() {    
-    if ( !isset( $_COOKIE['cookie-accepted'] ) ) {
-        add_action('wp_footer', 'jlplg_lovecoding_display_cookie_info');
-    }
-}
-add_action( 'init', 'jlplg_lovecoding_display_cookie_notice');
-
 
 // allowed html code in plugin message
 function jlplg_lovecoding_allowed_html() {
@@ -136,15 +75,20 @@ function jlplg_lovecoding_display_cookie_info() {
     $button_background_color = get_option( "jlplg_lovecoding-field7-button-background-color", '#dcf1ff' );
     $button_text_color = get_option( "jlplg_lovecoding-field8-button-text-color", '#000000' );
     $cookie_info_placemet = get_option( "jlplg_lovecoding-field4-cookie-plugin-placement", 'bottom' );
+    $cookie_expire_time = get_option( "jlplg_lovecoding-field9-cookie-expire-time", '30' );
     $allowed_html = jlplg_lovecoding_allowed_html();
 ?>
-    <div class="jlplg-lovecoding-cookie-info-container" style="<?php echo 'background-color: '.esc_attr( $background_color ).'; '.esc_attr( $cookie_info_placemet ).': 0' ?>" id="jlplg-lovecoding-cookie-info-container">
+    <div class="jlplg-lovecoding-cookie-info-container jlplg-hidden" style="<?php echo 'background-color: '.esc_attr( $background_color ).'; '.esc_attr( $cookie_info_placemet ).': 0' ?>" id="jlplg-lovecoding-cookie-info-container">
         <form method="post" id="cookie-form"> 
             <p class="jlplg-lovecoding-cookie-info" style="<?php echo 'color: '.esc_attr( $text_color ) ?>"><?php echo wp_kses( $cookie_message, $allowed_html ); ?></p>
             <div class="jlplg-lovecoding-buttons">
-            <button type="submit" name="cookie-accept-button" class="jlplg-lovecoding-cookie-accept-button" id="cookie-accept-button" style="<?php echo 'background-color: '.esc_attr( $button_background_color ) ?>" ><span class="button-text" style="<?php echo 'color: '.esc_attr( $button_text_color ) ?>"><?php echo esc_html( $cookie_info_button ); ?></span></button>
+            <button type="submit" name="jlplg-cookie-accept-button" class="jlplg-lovecoding-cookie-accept-button" id="cookie-accept-button" style="<?php echo 'background-color: '.esc_attr( $button_background_color ) ?>" data-expire="<?php echo esc_html( $cookie_expire_time ) ?>">
+                <span class="button-text" style="<?php echo 'color: '.esc_attr( $button_text_color ) ?>"><?php echo esc_html( $cookie_info_button ); ?></span>
+            </button>
             <?php if ( $show_policy_privacy ) { ?>
-            <button type="submit" name="cookie-privacy-policy" class="jlplg-lovecoding-cookie-privacy-policy" id="cookie-privacy-policy" style="<?php echo 'background-color: '.esc_attr( $button_background_color ) ?>"><span class="button-text" style="<?php echo 'color: '.esc_attr( $button_text_color ) ?>"><?php esc_html_e( 'Privacy Policy', 'jlplg_lovecoding' ) ?></span></button>
+            <button type="submit" name="jlplg-cookie-privacy-policy" class="jlplg-lovecoding-cookie-privacy-policy" id="cookie-privacy-policy" style="<?php echo 'background-color: '.esc_attr( $button_background_color ) ?>">
+                <span class="button-text" style="<?php echo 'color: '.esc_attr( $button_text_color ) ?>"><?php esc_html_e( 'Privacy Policy', 'jlplg_lovecoding' ) ?></span>
+            </button>
             <?php } ?>
             </div>
         </form>
@@ -152,6 +96,22 @@ function jlplg_lovecoding_display_cookie_info() {
 <?php
 }
 
+// display cookie notice if cookie info is not set
+function jlplg_lovecoding_display_cookie_notice() {
+    // always display cookies info
+    add_action('wp_footer', 'jlplg_lovecoding_display_cookie_info');
+
+    // make action when privacy policy button was clicked
+    if ( isset( $_POST['jlplg-cookie-privacy-policy'] ) ) {
+        $privacy_policy = get_privacy_policy_url();
+        if ( empty($privacy_policy) ) {
+            $privacy_policy = get_home_url().'/privacy-policy';
+        }
+        wp_safe_redirect( $privacy_policy );
+        exit;
+    }
+}
+add_action( 'init', 'jlplg_lovecoding_display_cookie_notice');
 
 // adding new page to admin menu
 add_action( 'admin_menu', 'jlplg_lovecoding_add_new_page' );
@@ -190,6 +150,11 @@ function jlplg_lovecoding_add_new_settings() {
         'sanitize_callback' => 'jlplg_lovecoding_sanitize_input_field',
         'default' => 'bottom'
     );
+    $configuration_settins_field5_arg = array(
+        'type' => 'string',
+        'sanitize_callback' => 'jlplg_lovecoding_sanitize_input_field',
+        'default' => 'bottom'
+    );
     $layout_settins_field1_arg = array(
         'type' => 'string',
         'sanitize_callback' => 'jlplg_lovecoding_sanitize_color_input',
@@ -218,6 +183,7 @@ function jlplg_lovecoding_add_new_settings() {
     register_setting( 'jl_options', 'jlplg_lovecoding-field6-text-color', $layout_settins_field2_arg);
     register_setting( 'jl_options', 'jlplg_lovecoding-field7-button-background-color', $layout_settins_field3_arg);
     register_setting( 'jl_options', 'jlplg_lovecoding-field8-button-text-color', $layout_settins_field4_arg);
+    register_setting( 'jl_options', 'jlplg_lovecoding-field9-cookie-expire-time', $configuration_settins_field5_arg);
 
     // adding sections
     add_settings_section( 'jlplg_lovecoding_section_1_configuration', 'Configuration', null, 'jl-slug' );  // id (Slug-name to identify the section), title, callback, page slug
@@ -228,6 +194,7 @@ function jlplg_lovecoding_add_new_settings() {
     add_settings_field( 'field-2-privacy-policy-button', 'Display Privacy Policy Button', 'jlplg_lovecoding_field_2_callback', 'jl-slug', 'jlplg_lovecoding_section_1_configuration' );
     add_settings_field( 'field-3-cookie-button-text', 'Cookie Button Text', 'jlplg_lovecoding_field_3_callback', 'jl-slug', 'jlplg_lovecoding_section_1_configuration' );
     add_settings_field( 'field-4-cookie-plugin-placement', 'Cookie info placement', 'jlplg_lovecoding_field_4_callback', 'jl-slug', 'jlplg_lovecoding_section_1_configuration' );
+    add_settings_field( 'field-9-cookie-expire-time', 'Cookie expire time', 'jlplg_lovecoding_field_9_callback', 'jl-slug', 'jlplg_lovecoding_section_1_configuration' );
     add_settings_field( 'field-5-cookie-background-color', 'Background color', 'jlplg_lovecoding_field_5_callback', 'jl-slug-2', 'jlplg_lovecoding_section_2_layout' );
     add_settings_field( 'field-6-cookie-text-color', 'Text color', 'jlplg_lovecoding_field_6_callback', 'jl-slug-2', 'jlplg_lovecoding_section_2_layout' );
     add_settings_field( 'field-7-cookie-button-background-color', 'Button background color', 'jlplg_lovecoding_field_7_callback', 'jl-slug-2', 'jlplg_lovecoding_section_2_layout' );
@@ -285,6 +252,11 @@ function jlplg_lovecoding_field_8_callback() {
     echo '<input type="color" name="jlplg_lovecoding-field8-button-text-color" value="'.esc_html( get_option( "jlplg_lovecoding-field8-button-text-color", '#000000' ) ).'" />';
 }
 
+// field 8 - cookie expire time
+function jlplg_lovecoding_field_9_callback() {
+    echo '<input type="text" name="jlplg_lovecoding-field9-cookie-expire-time" value="'.esc_html( get_option( "jlplg_lovecoding-field9-cookie-expire-time", '30' ) ).'" />';
+}
+
 // sanitize textarea
 function jlplg_lovecoding_sanitize_textarea_field( $input ) {
     if ( isset( $input ) ) {
@@ -338,7 +310,6 @@ function jlplg_lovecoding_page_html_content() {
             do_settings_sections( 'jl-slug-2' );                      // The slug name of settings sections you want to output.
             // output save settings button
             submit_button( 'Save Settings', 'primary', 'submit', true );     // Button text, button type, button id, wrap, any other attribute
-            echo 'val '.get_option( "jlplg_lovecoding-field4-cookie-plugin-placement" );
             ?>
         </form>
     </div>

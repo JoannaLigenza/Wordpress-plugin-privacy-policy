@@ -2,9 +2,9 @@
 Contributors: lovecoding
 Tags: cookie, cookie notice, cookie consent, cookie law, privacy policy, cookies, 
 Requires at least: 5.0
-Tested up to: 5.6
+Tested up to: 6.2
 Requires PHP: 7.0
-Stable tag: 1.4
+Stable tag: 1.7
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl.html
 
@@ -42,9 +42,16 @@ No questions yet.
 
 == Upgrade Notice ==
 
+= 1.7 =
+* Upgrade version to 1.7 - tested on WP 6.2
+
 = 1.6 =
-* Changed way of saving cookies by javaScript
-* Added unique version to plugin script file, to not cached it
+* fixed privacy policy page link
+
+= 1.5 =
+* removed setting cookies by php
+* added setting cookies by javascript
+* added cookie expired time to plugin options
 
 = 1.4 =
 * Removed unneccessary action attribute from form tag

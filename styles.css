@@ -6,6 +6,10 @@
     margin: 0;
 }
 
+.jlplg-lovecoding-cookie-info-container.jlplg-hidden {
+    display: none;
+}
+
 .jlplg-lovecoding-cookie-info {
     display: inline-block;
     padding: 10px;
