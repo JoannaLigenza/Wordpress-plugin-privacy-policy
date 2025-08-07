@@ -26,21 +26,23 @@
     margin-bottom: 10px;
 }
 
-.jlplg-lovecoding-cookie-accept-button, .jlplg-lovecoding-cookie-privacy-policy {
+button.jlplg-lovecoding-cookie-accept-button, button.jlplg-lovecoding-cookie-privacy-policy {
     padding: 5px 15px;
     border-radius: 4px;
-    /* background-color: rgb(220, 241, 255); */
     border: 2px solid transparent;
     margin: 5px 0;
 }
 
-.jlplg-lovecoding-cookie-accept-button:hover, .jlplg-lovecoding-cookie-privacy-policy:hover {
+button.jlplg-lovecoding-cookie-accept-button:hover, button.jlplg-lovecoding-cookie-privacy-policy:hover,
+button.jlplg-lovecoding-cookie-accept-button:focus, button.jlplg-lovecoding-cookie-privacy-policy:focus {
     cursor: pointer;
+    border: 2px solid transparent;
 }
 
-.jlplg-lovecoding-cookie-accept-button:focus, .jlplg-lovecoding-cookie-privacy-policy:focus {
-    border: 2px solid rgb(143, 143, 143);
-    outline: none;
+button.jlplg-lovecoding-cookie-accept-button:focus-visible, button.jlplg-lovecoding-cookie-privacy-policy:focus-visible {
+    border: 2px solid transparent;
+    outline: 2px solid var(--jlplg-buton-bg-color);
+    outline-offset: 2px;
 }
 
 .button-text {

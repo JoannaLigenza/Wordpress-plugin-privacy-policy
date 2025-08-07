@@ -37,7 +37,8 @@ window.addEventListener('DOMContentLoaded', (event) => {
             if (typeof expireTime !== 'string') {
                 expireTime = 30;
             }
-            button.addEventListener('click', function() {
+            button.addEventListener('click', function(e) {
+                e.preventDefault();
                 jlplgSetCookieConsent("jlplg-cookies-accepted", "yes", { days: parseInt(expireTime), path: "/" });
                 document.querySelector('.jlplg-lovecoding-cookie-info-container').classList.add('jlplg-hidden');
             });

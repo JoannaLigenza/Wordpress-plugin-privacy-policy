@@ -2,7 +2,7 @@
 /**
  * Plugin Name: Simple Cookie Notice
  * Description: In simple way add personalized cookie info and link to wordpress privacy policy page.
- * Version: 1.8
+ * Version: 2.0
  * Requires at least: 5.0
  * Requires PHP: 7.0
  * Author: JL-lovecoding
@@ -78,7 +78,9 @@ function jlplg_lovecoding_display_cookie_info() {
     $cookie_expire_time = get_option( "jlplg_lovecoding-field9-cookie-expire-time", '30' );
     $allowed_html = jlplg_lovecoding_allowed_html();
 ?>
-    <div class="jlplg-lovecoding-cookie-info-container jlplg-hidden" style="<?php echo 'background-color: '.esc_attr( $background_color ).'; '.esc_attr( $cookie_info_placemet ).': 0' ?>" id="jlplg-lovecoding-cookie-info-container">
+    <div class="jlplg-lovecoding-cookie-info-container jlplg-hidden" 
+        style="<?php echo '--jlplg-buton-bg-color: '.esc_attr( $button_background_color ).'; background-color: '.esc_attr( $background_color ).'; '.esc_attr( $cookie_info_placemet ).': 0' ?>" 
+        id="jlplg-lovecoding-cookie-info-container">
         <form method="post" id="cookie-form"> 
             <p class="jlplg-lovecoding-cookie-info" style="<?php echo 'color: '.esc_attr( $text_color ) ?>"><?php echo wp_kses( $cookie_message, $allowed_html ); ?></p>
             <div class="jlplg-lovecoding-buttons">
@@ -206,6 +208,7 @@ add_action( 'admin_init', 'jlplg_lovecoding_add_new_settings' );
 // field 1 - cookie message
 function jlplg_lovecoding_field_1_callback() {
     echo '<textarea type="text" cols="50" rows="4" name="jlplg_lovecoding-field1-cookie-message" >'.esc_textarea( get_option( "jlplg_lovecoding-field1-cookie-message", 'We use cookies to improve your experience on our website. By browsing this website, you agree to our use of cookies' ) ).'</textarea>';
+    echo '<div>Tags allowed in message: a, br, em, strong, span</div>';
 }
 
 // field 2 - show privacy policy button
