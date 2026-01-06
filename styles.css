@@ -22,24 +22,33 @@
 }
 
 .jlplg-lovecoding-buttons {
-    display: inline-block;
-    margin-bottom: 10px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 16px;
 }
 
-button.jlplg-lovecoding-cookie-accept-button, button.jlplg-lovecoding-cookie-privacy-policy {
-    padding: 5px 15px;
+.jlplg-lovecoding-cookie-accept-button, .jlplg-lovecoding-cookie-privacy-policy {
+    display: inline-block;
+    padding: 7px 15px;
     border-radius: 4px;
     border: 2px solid transparent;
-    margin: 5px 0;
+    margin: 0;
+    text-decoration: none;
+    line-height: 1;
+    font-family: inherit;
+    font-size: 16px;
 }
 
-button.jlplg-lovecoding-cookie-accept-button:hover, button.jlplg-lovecoding-cookie-privacy-policy:hover,
-button.jlplg-lovecoding-cookie-accept-button:focus, button.jlplg-lovecoding-cookie-privacy-policy:focus {
+.jlplg-lovecoding-cookie-accept-button:hover, .jlplg-lovecoding-cookie-privacy-policy:hover,
+.jlplg-lovecoding-cookie-accept-button:focus, .jlplg-lovecoding-cookie-privacy-policy:focus {
     cursor: pointer;
     border: 2px solid transparent;
 }
 
-button.jlplg-lovecoding-cookie-accept-button:focus-visible, button.jlplg-lovecoding-cookie-privacy-policy:focus-visible {
+.jlplg-lovecoding-cookie-accept-button:focus-visible, .jlplg-lovecoding-cookie-privacy-policy:focus-visible {
     border: 2px solid transparent;
     outline: 2px solid var(--jlplg-buton-bg-color);
     outline-offset: 2px;

@@ -88,10 +88,15 @@ function jlplg_lovecoding_display_cookie_info() {
             <button type="submit" name="jlplg-cookie-accept-button" class="jlplg-lovecoding-cookie-accept-button" id="cookie-accept-button" style="<?php echo 'background-color: '.esc_attr( $button_background_color ) ?>" data-expire="<?php echo esc_html( $cookie_expire_time ) ?>">
                 <span class="button-text" style="<?php echo 'color: '.esc_attr( $button_text_color ) ?>"><?php echo esc_html( $cookie_info_button ); ?></span>
             </button>
-            <?php if ( $show_policy_privacy ) { ?>
-            <button type="submit" name="jlplg-cookie-privacy-policy" class="jlplg-lovecoding-cookie-privacy-policy" id="cookie-privacy-policy" style="<?php echo 'background-color: '.esc_attr( $button_background_color ) ?>">
+            <?php if ( $show_policy_privacy ) { 
+                $privacy_url = get_privacy_policy_url();
+                if ( empty( $privacy_url ) ) {
+                    $privacy_url = get_home_url() . '/privacy-policy';
+                }
+            ?>
+            <a href="<?php echo esc_url( $privacy_url ); ?>" class="jlplg-lovecoding-cookie-privacy-policy" id="cookie-privacy-policy" style="<?php echo 'background-color: '.esc_attr( $button_background_color ) ?>">
                 <span class="button-text" style="<?php echo 'color: '.esc_attr( $button_text_color ) ?>"><?php esc_html_e( 'Privacy Policy', 'jlplg_lovecoding' ) ?></span>
-            </button>
+            </a>
             <?php } ?>
             </div>
         </form>
@@ -101,18 +106,7 @@ function jlplg_lovecoding_display_cookie_info() {
 
 // display cookie notice if cookie info is not set
 function jlplg_lovecoding_display_cookie_notice() {
-    // always display cookies info
     add_action('wp_footer', 'jlplg_lovecoding_display_cookie_info');
-
-    // make action when privacy policy button was clicked
-    if ( isset( $_POST['jlplg-cookie-privacy-policy'] ) ) {
-        $privacy_policy = get_privacy_policy_url();
-        if ( empty($privacy_policy) ) {
-            $privacy_policy = get_home_url().'/privacy-policy';
-        }
-        wp_safe_redirect( $privacy_policy );
-        exit;
-    }
 }
 add_action( 'init', 'jlplg_lovecoding_display_cookie_notice');
 
