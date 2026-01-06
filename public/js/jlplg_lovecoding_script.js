@@ -63,7 +63,7 @@ window.addEventListener('DOMContentLoaded', (event) => {
     function jlplgShowCookieConsent() {
         const jlplgCookie = jlplgGetCookie("jlplg-cookies-accepted");
 
-        if (jlplgCookie != 'yes') {
+        if (jlplgCookie !== 'yes') {
             document.querySelector('.jlplg-lovecoding-cookie-info-container').classList.remove('jlplg-hidden');
         }
     }

@@ -2,7 +2,7 @@
 /**
  * Plugin Name: Simple Cookie Notice
  * Description: In simple way add personalized cookie info and link to wordpress privacy policy page.
- * Version: 2.0
+ * Version: 2.1
  * Requires at least: 5.0
  * Requires PHP: 7.0
  * Author: JL-lovecoding
@@ -27,6 +27,7 @@
 
 defined( 'ABSPATH' ) or die( 'hey, you don\'t have an access to read this site' );
 
+$plugin_data = get_plugin_data( WP_PLUGIN_DIR . '/simple-cookie-notice/simple-cookie-notice.php' );
 
 // adding 'Settings' link to plugin links
 function jlplg_lovecoding_add_plugin_settings_link( $links ) {
@@ -41,8 +42,8 @@ add_filter('plugin_action_links_'.plugin_basename(__FILE__), 'jlplg_lovecoding_a
 // adding styles and scripts
 function jlplg_lovecoding_enqueue_scripts() {
     // load styles and script for plugin only if cookies are not accepted
-    if ( !isset( $_COOKIE['cookie-accepted'] ) ) {
-        wp_enqueue_style( 'styles', plugins_url( 'styles.css', __FILE__ ) );
+    if ( !isset( $_COOKIE['jlplg-cookies-accepted'] ) ) {
+        wp_enqueue_style( 'jlplg_lovecoding_styles', plugins_url( 'styles.css', __FILE__ ), [], $plugin_data['Version'] );
         wp_enqueue_script( 'jlplg_lovecoding_script', plugins_url( 'public/js/jlplg_lovecoding_script.js', __FILE__ ), array(), time(), true );
     }
 }
@@ -255,7 +256,7 @@ function jlplg_lovecoding_field_8_callback() {
     echo '<input type="color" name="jlplg_lovecoding-field8-button-text-color" value="'.esc_html( get_option( "jlplg_lovecoding-field8-button-text-color", '#000000' ) ).'" />';
 }
 
-// field 8 - cookie expire time
+// field 9 - cookie expire time
 function jlplg_lovecoding_field_9_callback() {
     echo '<input type="text" name="jlplg_lovecoding-field9-cookie-expire-time" value="'.esc_html( get_option( "jlplg_lovecoding-field9-cookie-expire-time", '30' ) ).'" />';
 }
