@@ -43,7 +43,12 @@ No questions yet.
 == Upgrade Notice ==
 
 = 2.1 =
-* Upgrade version to 2.1 - tested on WP 6.9
+* Fixed critical bug with cookie name inconsistency
+* Improved uninstall process
+* Changed Privacy Policy button to link for better performance and SEO
+* Added validation for cookie expiration time
+* Fixed typos in variable names
+* Code refactoring and improvements
 
 = 2.0 =
 * Prevent page reloading after accepting cookies
