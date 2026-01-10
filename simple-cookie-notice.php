@@ -27,8 +27,6 @@
 
 defined( 'ABSPATH' ) or die( 'hey, you don\'t have an access to read this site' );
 
-$plugin_data = get_plugin_data( WP_PLUGIN_DIR . '/simple-cookie-notice/simple-cookie-notice.php' );
-
 // adding 'Settings' link to plugin links
 function jlplg_lovecoding_add_plugin_settings_link( $links ) {
     $url = admin_url()."options-general.php?page=privacy-policy";
@@ -41,11 +39,11 @@ add_filter('plugin_action_links_'.plugin_basename(__FILE__), 'jlplg_lovecoding_a
 
 // adding styles and scripts
 function jlplg_lovecoding_enqueue_scripts() {
-    // load styles and script for plugin only if cookies are not accepted
-    if ( !isset( $_COOKIE['jlplg-cookies-accepted'] ) ) {
-        wp_enqueue_style( 'jlplg_lovecoding_styles', plugins_url( 'styles.css', __FILE__ ), [], $plugin_data['Version'] );
-        wp_enqueue_script( 'jlplg_lovecoding_script', plugins_url( 'public/js/jlplg_lovecoding_script.js', __FILE__ ), array(), time(), true );
-    }
+    $plugin_data = get_plugin_data( WP_PLUGIN_DIR . '/simple-cookie-notice/simple-cookie-notice.php' );
+    $plugin_version = isset( $plugin_data['Version'] ) ? $plugin_data['Version'] : '2.0';
+
+    wp_enqueue_style( 'jlplg_lovecoding_styles', plugins_url( 'styles.css', __FILE__ ), [], $plugin_version );
+    wp_enqueue_script( 'jlplg_lovecoding_script', plugins_url( 'public/js/jlplg_lovecoding_script.js', __FILE__ ), array(), $plugin_version, true );
 }
 add_action( 'wp_enqueue_scripts', 'jlplg_lovecoding_enqueue_scripts' );
 
