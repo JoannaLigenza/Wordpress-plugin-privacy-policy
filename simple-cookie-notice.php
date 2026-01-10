@@ -146,9 +146,9 @@ function jlplg_lovecoding_add_new_settings() {
         'default' => 'bottom'
     );
     $configuration_settins_field5_arg = array(
-        'type' => 'string',
-        'sanitize_callback' => 'jlplg_lovecoding_sanitize_input_field',
-        'default' => 'bottom'
+        'type' => 'integer',
+        'sanitize_callback' => 'jlplg_lovecoding_sanitize_integer',
+        'default' => 30
     );
     $layout_settins_field1_arg = array(
         'type' => 'string',
@@ -260,6 +260,11 @@ function jlplg_lovecoding_sanitize_textarea_field( $input ) {
         $input = wp_kses( $input, $allowed_html );
     }
     return $input;
+}
+
+// sanitize integer
+function jlplg_lovecoding_sanitize_integer( $input ) {
+    return ( isset( $input ) ) ? absint( $input ) : 30;
 }
 
 // sanitize input
