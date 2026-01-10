@@ -1,6 +1,6 @@
 === Simple Cookie Notice ===
 Contributors: lovecoding
-Tags: cookie, cookie notice, cookie consent, cookie law, privacy policy, cookies, 
+Tags: cookie, cookie notice, cookie consent, cookie law, privacy policy, cookies, simple cookies
 Requires at least: 5.0
 Tested up to: 6.9
 Requires PHP: 7.0
