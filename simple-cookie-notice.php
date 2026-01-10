@@ -125,60 +125,60 @@ function jlplg_lovecoding_add_new_page() {
 // adding settings and sections to page in admin menu
 function jlplg_lovecoding_add_new_settings() {
     // register settings
-    $configuration_settins_field1_arg = array(
+    $configuration_settings_field1_arg = array(
         'type' => 'string',
         'sanitize_callback' => 'jlplg_lovecoding_sanitize_textarea_field',
         'default' => 'We use cookies to improve your experience on our website. By browsing this website, you agree to our use of cookies'
     );
-    $configuration_settins_field2_arg = array(
+    $configuration_settings_field2_arg = array(
         'type' => 'boolean',
         'sanitize_callback' => 'jlplg_lovecoding_sanitize_checkbox',
         'default' => false
     );
-    $configuration_settins_field3_arg = array(
+    $configuration_settings_field3_arg = array(
         'type' => 'string',
         'sanitize_callback' => 'jlplg_lovecoding_sanitize_input_field',
         'default' => 'Accept Cookies'
     );
-    $configuration_settins_field4_arg = array(
+    $configuration_settings_field4_arg = array(
         'type' => 'string',
         'sanitize_callback' => 'jlplg_lovecoding_sanitize_input_field',
         'default' => 'bottom'
     );
-    $configuration_settins_field5_arg = array(
+    $configuration_settings_field5_arg = array(
         'type' => 'integer',
         'sanitize_callback' => 'jlplg_lovecoding_sanitize_integer',
         'default' => 30
     );
-    $layout_settins_field1_arg = array(
+    $layout_settings_field1_arg = array(
         'type' => 'string',
         'sanitize_callback' => 'jlplg_lovecoding_sanitize_color_input',
         'default' => '#444546'
     );
-    $layout_settins_field2_arg = array(
+    $layout_settings_field2_arg = array(
         'type' => 'string',
         'sanitize_callback' => 'jlplg_lovecoding_sanitize_color_input',
         'default' => '#ffffff'
     );
-    $layout_settins_field3_arg = array(
+    $layout_settings_field3_arg = array(
         'type' => 'string',
         'sanitize_callback' => 'jlplg_lovecoding_sanitize_color_input',
         'default' => '#dcf1ff'
     );
-    $layout_settins_field4_arg = array(
+    $layout_settings_field4_arg = array(
         'type' => 'string',
         'sanitize_callback' => 'jlplg_lovecoding_sanitize_color_input',
         'default' => '#000000'
     );
-    register_setting( 'jl_options', 'jlplg_lovecoding-field1-cookie-message', $configuration_settins_field1_arg);     // option group, option name, args
-    register_setting( 'jl_options', 'jlplg_lovecoding-field2-checkbox-privacy-policy', $configuration_settins_field2_arg);
-    register_setting( 'jl_options', 'jlplg_lovecoding-field3-cookie-button-text', $configuration_settins_field3_arg);
-    register_setting( 'jl_options', 'jlplg_lovecoding-field4-cookie-plugin-placement', $configuration_settins_field4_arg);
-    register_setting( 'jl_options', 'jlplg_lovecoding-field5-background-color', $layout_settins_field1_arg);
-    register_setting( 'jl_options', 'jlplg_lovecoding-field6-text-color', $layout_settins_field2_arg);
-    register_setting( 'jl_options', 'jlplg_lovecoding-field7-button-background-color', $layout_settins_field3_arg);
-    register_setting( 'jl_options', 'jlplg_lovecoding-field8-button-text-color', $layout_settins_field4_arg);
-    register_setting( 'jl_options', 'jlplg_lovecoding-field9-cookie-expire-time', $configuration_settins_field5_arg);
+    register_setting( 'jl_options', 'jlplg_lovecoding-field1-cookie-message', $configuration_settings_field1_arg);     // option group, option name, args
+    register_setting( 'jl_options', 'jlplg_lovecoding-field2-checkbox-privacy-policy', $configuration_settings_field2_arg);
+    register_setting( 'jl_options', 'jlplg_lovecoding-field3-cookie-button-text', $configuration_settings_field3_arg);
+    register_setting( 'jl_options', 'jlplg_lovecoding-field4-cookie-plugin-placement', $configuration_settings_field4_arg);
+    register_setting( 'jl_options', 'jlplg_lovecoding-field5-background-color', $layout_settings_field1_arg);
+    register_setting( 'jl_options', 'jlplg_lovecoding-field6-text-color', $layout_settings_field2_arg);
+    register_setting( 'jl_options', 'jlplg_lovecoding-field7-button-background-color', $layout_settings_field3_arg);
+    register_setting( 'jl_options', 'jlplg_lovecoding-field8-button-text-color', $layout_settings_field4_arg);
+    register_setting( 'jl_options', 'jlplg_lovecoding-field9-cookie-expire-time', $configuration_settings_field5_arg);
 
     // adding sections
     add_settings_section( 'jlplg_lovecoding_section_1_configuration', 'Configuration', null, 'jl-slug' );  // id (Slug-name to identify the section), title, callback, page slug
