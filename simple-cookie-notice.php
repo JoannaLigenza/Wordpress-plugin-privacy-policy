@@ -73,12 +73,12 @@ function jlplg_lovecoding_display_cookie_info() {
     $text_color = get_option( "jlplg_lovecoding-field6-text-color", '#ffffff' );
     $button_background_color = get_option( "jlplg_lovecoding-field7-button-background-color", '#dcf1ff' );
     $button_text_color = get_option( "jlplg_lovecoding-field8-button-text-color", '#000000' );
-    $cookie_info_placemet = get_option( "jlplg_lovecoding-field4-cookie-plugin-placement", 'bottom' );
+    $cookie_info_placement = jlplg_lovecoding_sanitize_placement( get_option( "jlplg_lovecoding-field4-cookie-plugin-placement", 'bottom' ) );
     $cookie_expire_time = get_option( "jlplg_lovecoding-field9-cookie-expire-time", '30' );
     $allowed_html = jlplg_lovecoding_allowed_html();
 ?>
     <div class="jlplg-lovecoding-cookie-info-container jlplg-hidden" 
-        style="<?php echo '--jlplg-buton-bg-color: '.esc_attr( $button_background_color ).'; background-color: '.esc_attr( $background_color ).'; '.esc_attr( $cookie_info_placemet ).': 0' ?>" 
+        style="<?php echo '--jlplg-buton-bg-color: '.esc_attr( $button_background_color ).'; background-color: '.esc_attr( $background_color ).'; '.esc_attr( $cookie_info_placement ).': 0' ?>" 
         id="jlplg-lovecoding-cookie-info-container">
         <form method="post" id="cookie-form"> 
             <p class="jlplg-lovecoding-cookie-info" style="<?php echo 'color: '.esc_attr( $text_color ) ?>"><?php echo wp_kses( $cookie_message, $allowed_html ); ?></p>
@@ -142,7 +142,7 @@ function jlplg_lovecoding_add_new_settings() {
     );
     $configuration_settings_field4_arg = array(
         'type' => 'string',
-        'sanitize_callback' => 'jlplg_lovecoding_sanitize_input_field',
+        'sanitize_callback' => 'jlplg_lovecoding_sanitize_placement',
         'default' => 'bottom'
     );
     $configuration_settings_field5_arg = array(
@@ -221,7 +221,7 @@ function jlplg_lovecoding_field_3_callback() {
 
 // field 4 - cookie info placement
 function jlplg_lovecoding_field_4_callback() {
-    $isChecked = get_option( "jlplg_lovecoding-field4-cookie-plugin-placement", 'bottom' );
+    $isChecked = jlplg_lovecoding_sanitize_placement( get_option( "jlplg_lovecoding-field4-cookie-plugin-placement", 'bottom' ) );
     ?>
     <input type="radio" name="jlplg_lovecoding-field4-cookie-plugin-placement" value="top" <?php echo esc_html( $isChecked ) === 'top' ? "checked" : null ?> /> Top <br><br>
     <input type="radio" name="jlplg_lovecoding-field4-cookie-plugin-placement" value="bottom" <?php echo esc_html( $isChecked ) === 'bottom' ? "checked" : null ?> /> Bottom
@@ -273,6 +273,12 @@ function jlplg_lovecoding_sanitize_input_field( $input ) {
         $input = sanitize_text_field( $input );
     }
     return $input;
+}
+
+// sanitize placement
+function jlplg_lovecoding_sanitize_placement( $input ) {
+    $placement = sanitize_key( (string) $input );
+    return in_array( $placement, array( 'top', 'bottom' ), true ) ? $placement : 'bottom';
 }
 
 // sanitize checkbox
