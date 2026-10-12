@@ -28,7 +28,7 @@
 defined( 'ABSPATH' ) or die( 'hey, you don\'t have an access to read this site' );
 
 // adding 'Settings' link to plugin links
-function jlplg_lovecoding_add_plugin_settings_link( $links ) {
+function jlplg_lovecoding_add_plugin_settings_link( array $links ) {
     $url = admin_url()."options-general.php?page=privacy-policy";
     $settings_link = '<a href="'.esc_url( $url ).'">'.esc_html( 'Settings' ).'</a>';
     $links[] = $settings_link;
@@ -254,7 +254,7 @@ function jlplg_lovecoding_field_9_callback() {
 }
 
 // sanitize textarea
-function jlplg_lovecoding_sanitize_textarea_field( $input ) {
+function jlplg_lovecoding_sanitize_textarea_field( string $input ) {
     if ( isset( $input ) ) {
         $allowed_html = jlplg_lovecoding_allowed_html();
         $input = wp_kses( $input, $allowed_html );
@@ -263,12 +263,12 @@ function jlplg_lovecoding_sanitize_textarea_field( $input ) {
 }
 
 // sanitize integer
-function jlplg_lovecoding_sanitize_integer( $input ) {
+function jlplg_lovecoding_sanitize_integer( int $input ) {
     return ( isset( $input ) ) ? absint( $input ) : 30;
 }
 
 // sanitize input
-function jlplg_lovecoding_sanitize_input_field( $input ) {
+function jlplg_lovecoding_sanitize_input_field( string $input ) {
     if ( isset( $input ) ) {
         $input = sanitize_text_field( $input );
     }
@@ -276,18 +276,18 @@ function jlplg_lovecoding_sanitize_input_field( $input ) {
 }
 
 // sanitize placement
-function jlplg_lovecoding_sanitize_placement( $input ) {
+function jlplg_lovecoding_sanitize_placement( string $input ) {
     $placement = sanitize_key( (string) $input );
     return in_array( $placement, array( 'top', 'bottom' ), true ) ? $placement : 'bottom';
 }
 
 // sanitize checkbox
-function jlplg_lovecoding_sanitize_checkbox( $checked ) {
+function jlplg_lovecoding_sanitize_checkbox( bool $checked ) {
     return ( ( isset( $checked ) && true == $checked ) ? true : false );
 }
 
 // sanitize color input
-function jlplg_lovecoding_sanitize_color_input( $input ) {
+function jlplg_lovecoding_sanitize_color_input( string $input ) {
     if ( isset( $input ) ) {
         $input = sanitize_hex_color( $input );
     }
@@ -322,6 +322,3 @@ function jlplg_lovecoding_page_html_content() {
     </div>
     <?php
 }
-
-
-
