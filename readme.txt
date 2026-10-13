@@ -42,7 +42,7 @@ No questions yet.
 
 == Upgrade Notice ==
 
-= 2.1 =
+= 2.2 =
 * Code refactoring and improvements
 
 = 2.1 =
