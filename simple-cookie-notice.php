@@ -282,7 +282,7 @@ function jlplg_lovecoding_sanitize_placement( string $input ) {
 }
 
 // sanitize checkbox
-function jlplg_lovecoding_sanitize_checkbox( bool $checked ) {
+function jlplg_lovecoding_sanitize_checkbox( $checked ) {
     return ( ( isset( $checked ) && true == $checked ) ? true : false );
 }
 
